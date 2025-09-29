@@ -10,8 +10,8 @@ const MainLayout = () => {
       <Navbar></Navbar>
       <div className="min-h-[calc(100vh-324px)]">
         <Outlet></Outlet>
-        <Footer></Footer>
       </div>
+        <Footer></Footer>
     </>
   );
 };

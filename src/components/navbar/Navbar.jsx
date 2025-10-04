@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router";
 
 export default function Navbar({
   brand = "ROBE BY SHAMSHAD",
   announcement = "ALL SHIPPING TO USA ARE ON HOLD DUE TO NEW TARIFF ADVISORY UNTIL FURTHER NOTICE",
-  links = ["HOME", "SHOP", "ABOUT US", "COLLECTION", "SHAREE", "BAGS", "SALE"],
+  links = [
+    { label: "HOME", path: "/" },
+    { label: "SHOP", path: "/shop" },
+    { label: "ABOUT US", path: "/about" },
+    { label: "COLLECTION", path: "/collection" },
+    { label: "SHAREE", path: "/sharee" },
+    { label: "BAGS", path: "/bags" },
+    { label: "SALE", path: "/sale" },
+  ],
   cartCount = 0,
 }) {
   const [open, setOpen] = useState(false);
@@ -38,17 +47,23 @@ export default function Navbar({
               )}
             </button>
 
-            <a href="#" className="inline-grid place-items-center w-9 h-9 rounded-full border border-neutral-300">
+            <NavLink
+              to="/"
+              className="inline-grid place-items-center w-9 h-9 rounded-full border border-neutral-300"
+            >
               <span className="font-black text-lg">R</span>
               <span className="sr-only">Home</span>
-            </a>
+            </NavLink>
           </div>
 
           {/* Center: Brand (hidden on mobile) */}
           <div className="hidden md:flex">
-            <a href="#" className="font-semibold tracking-wide text-sm lg:text-base uppercase">
+            <NavLink
+              to="/"
+              className="font-semibold tracking-wide text-sm lg:text-base uppercase"
+            >
               {brand}
-            </a>
+            </NavLink>
           </div>
 
           {/* Right: Search + Icons */}
@@ -109,14 +124,18 @@ export default function Navbar({
       <div className="hidden md:block">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           <ul className="flex items-center justify-center gap-6 lg:gap-10 py-3">
-            {links.map((label) => (
+            {links.map(({ label, path }) => (
               <li key={label}>
-                <a
-                  href="#"
-                  className="text-[12px] lg:text-[13px] font-semibold tracking-[0.22em] text-neutral-500 hover:text-neutral-900 uppercase"
+                <NavLink
+                  to={path}
+                  className={({ isActive }) =>
+                    `text-[12px] lg:text-[13px] font-semibold tracking-[0.22em] uppercase transition ${
+                      isActive ? "text-neutral-900" : "text-neutral-500 hover:text-neutral-900"
+                    }`
+                  }
                 >
                   {label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -131,18 +150,23 @@ export default function Navbar({
         }`}
       >
         <ul className="grid gap-2 p-4 bg-white">
-          {links.map((label) => (
+          {links.map(({ label, path }) => (
             <li key={label}>
-              <a
-                href="#"
+              <NavLink
+                to={path}
                 onClick={() => setOpen(false)}
-                className="block py-2 text-sm font-semibold text-neutral-700 uppercase"
+                className={({ isActive }) =>
+                  `block py-2 text-sm font-semibold uppercase transition ${
+                    isActive ? "text-[#5b0e0e]" : "text-neutral-700 hover:text-[#5b0e0e]"
+                  }`
+                }
                 style={{ letterSpacing: "0.18em" }}
               >
                 {label}
-              </a>
+              </NavLink>
             </li>
           ))}
+
           {/* Optional search inside drawer for very small screens */}
           <li className="pt-2">
             <div className="relative">

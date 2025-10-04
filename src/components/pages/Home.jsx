@@ -1,10 +1,10 @@
 import React from 'react';
-import AllProducts from './ShopPage';
+import Carousel from '../layouts/Carousel';
 
 const Home = () => {
     return (
         <div>
-            <AllProducts></AllProducts>
+            <Carousel></Carousel>
         </div>
     );
 };

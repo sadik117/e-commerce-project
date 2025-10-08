@@ -123,7 +123,7 @@ export default function Navbar({
 
       {/* Desktop Menu Row */}
       <div className="hidden md:block">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 -mt-4">
           <ul className="flex items-center justify-center gap-6 lg:gap-10 py-3">
             {links.map(({ label, path }) => (
               <li key={label}>

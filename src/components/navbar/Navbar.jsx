@@ -12,6 +12,7 @@ export default function Navbar({
     { label: "SHAREE", path: "/sharee" },
     { label: "BAGS", path: "/bags" },
     { label: "SALE", path: "/sale" },
+    { label: "Admin Dashboard", path: "/admin" },
   ],
   cartCount = 0,
 }) {

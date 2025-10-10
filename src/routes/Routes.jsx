@@ -8,6 +8,7 @@ import DashboardLayout from "../components/admin/DashboardLayout";
 import AddProduct from "../components/admin/AddProduct";
 import ViewOrders from "../components/admin/ViewOrders";
 import ErrorPage from "../components/pages/ErrorPage";
+import ProductDetails from "../components/pages/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/shop",
         Component: ShopPage
+      },
+      {
+        path: "/product/:id",
+        Component: ProductDetails
       },
       {
         path: "/admin",

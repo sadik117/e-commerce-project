@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import Loading from "../layouts/Loading";
 
 
-/* --------------------------- Config Options --------------------------- */
+/* Config Options */
 const PRICE_RANGES = [
   { id: "p1", label: "Under Tk. 1000", test: (p) => p.price < 1000 },
   { id: "p2", label: "Tk. 1001 - Tk. 1500", test: (p) => p.price >= 1001 && p.price <= 1500 },
@@ -35,7 +36,7 @@ const COLORS = [
 
 const PAGE_SIZES = [12, 24, 48];
 
-/* ----------------------------- Component ----------------------------- */
+/* Component */
 export default function ShopPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -103,11 +104,11 @@ export default function ShopPage() {
     setPage(1);
   };
 
-  /* -- UI --*/
+  /* UI */
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 lg:py-10">
       <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
-        {/* --- LEFT: FILTERS --- */}
+        {/* LEFT FILTERS */}
         <aside className="md:top-20 md:sticky">
           <div className="rounded-xl border border-base-300 bg-base-200 p-4 md:p-5 space-y-5">
             <h2 className="text-lg font-extrabold tracking-wide">Filters</h2>
@@ -258,7 +259,7 @@ export default function ShopPage() {
               </div>
             </div>
 
-            {/* 🎨 Color Filter */}
+            {/* Color Filter */}
             <div className="collapse collapse-arrow bg-base-100 rounded-lg">
               <input type="checkbox" defaultChecked />
               <div className="collapse-title text-sm font-extrabold tracking-wide">
@@ -288,10 +289,10 @@ export default function ShopPage() {
           </div>
         </aside>
 
-        {/* --- RIGHT: PRODUCTS --- */}
+        {/* RIGHT PRODUCTS */}
         <section className="min-w-0">
           {loading ? (
-            <div className="py-20 text-center opacity-70">Loading products...</div>
+            <Loading></Loading>
           ) : (
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">

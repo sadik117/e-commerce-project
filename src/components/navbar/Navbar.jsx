@@ -82,7 +82,7 @@ export default function Navbar({
           </div>
 
           {/* Center: Brand */}
-          <div className="hidden md:flex flex-col items-center my-2">
+          <div className="flex flex-col items-center -2">
             <NavLink
               to="/"
               className="font-semibold tracking-wide text-sm uppercase"

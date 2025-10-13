@@ -5,7 +5,7 @@ const HomeFeatures = () => {
     {
       icon: <Truck className="w-10 h-10 text-[#5b0e0e]" />,
       title: "FREE DELIVERY",
-      desc: "Free delivery over 1500 BDT shopping",
+      desc: "Free delivery over 5000 BDT shopping",
     },
     {
       icon: <RefreshCcw className="w-10 h-10 text-[#5b0e0e]" />,

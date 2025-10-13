@@ -40,7 +40,7 @@ export default function ProductDetails() {
     localStorage.setItem("cart", JSON.stringify(existingCart));
     window.dispatchEvent(new Event("storage")); // sync with Navbar
 
-    alert(`${quantity} × ${product.name} added to cart!`);
+    alert(`${quantity} ${product.name} added to cart!`);
   };
 
   const productImages = [product?.image, product?.image, product?.image];
@@ -114,7 +114,7 @@ export default function ProductDetails() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Description:</h3>
                 <p className="text-gray-600 leading-relaxed">{product.description}</p>
               </div>
 

@@ -9,6 +9,7 @@ import AddProduct from "../components/admin/AddProduct";
 import ViewOrders from "../components/admin/ViewOrders";
 import ErrorPage from "../components/pages/ErrorPage";
 import ProductDetails from "../components/pages/ProductDetails";
+import CheckoutPage from "../components/pages/CheckoutPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/product/:id",
         Component: ProductDetails
+      },
+      {
+        path: "/checkout",
+        Component: CheckoutPage
       },
       {
         path: "/admin",

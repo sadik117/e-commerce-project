@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 export default function Navbar({
   brand = "ROBE BY SHAMSHAD",
@@ -12,7 +12,7 @@ export default function Navbar({
     { label: "COLLECTION", path: "/collection" },
     { label: "SHAREE", path: "/sharee" },
     { label: "BAGS", path: "/bags" },
-    { label: "Admin Dashboard", path: "/admin" },
+    { label: "ADMIN DASHBOARD", path: "/admin" },
   ],
 }) {
   const [open, setOpen] = useState(false);
@@ -82,7 +82,7 @@ export default function Navbar({
           </div>
 
           {/* Center: Brand */}
-          <div className="hidden md:flex flex-col items-center">
+          <div className="hidden md:flex flex-col items-center my-2">
             <NavLink
               to="/"
               className="font-semibold tracking-wide text-sm uppercase"
@@ -229,9 +229,9 @@ export default function Navbar({
                     <span>Total:</span>
                     <span>Tk {calculateTotal().toLocaleString()}</span>
                   </div>
-                  <button className="w-full bg-[#5b0e0e] text-white py-3 rounded-lg hover:bg-[#4a0b0b] transition">
+                  <Link to="/checkout" className="w-full bg-[#5b0e0e] text-white py-3 px-3 rounded-lg hover:bg-[#4a0b0b] transition">
                     Proceed to Checkout
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>

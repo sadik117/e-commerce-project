@@ -11,7 +11,6 @@ const CheckoutPage = () => {
     mobile: "",
     address: "",
     paymentMethod: "Cash On Delivery",
-    shipping: "Standard Shipping",
   });
   const [loading, setLoading] = useState(false);
 
@@ -28,8 +27,8 @@ const CheckoutPage = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const shipping = 100;
-  const total = subtotal + shipping;
+  // const shipping = 100;
+  // const total = subtotal + shipping;
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -44,8 +43,8 @@ const CheckoutPage = () => {
         customer: form,
         items: cart,
         subtotal,
-        shipping,
-        total,
+        // shipping,
+        // total,
         createdAt: new Date(),
       };
 
@@ -64,7 +63,7 @@ const CheckoutPage = () => {
         mobile: "",
         address: "",
         paymentMethod: "Cash On Delivery",
-        shipping: "Standard Shipping",
+        // shipping: "Standard Shipping",
       });
     } catch (error) {
       console.error(error);
@@ -125,7 +124,7 @@ const CheckoutPage = () => {
 
         <textarea
           name="address"
-          placeholder="Street Address"
+          placeholder="Address"
           value={form.address}
           onChange={handleChange}
           className="w-full border p-2 rounded"
@@ -141,7 +140,7 @@ const CheckoutPage = () => {
           </p>
         </div>
 
-        {/* Shipping Option */}
+        {/* Shipping Option
         <div>
           <label className="flex items-center gap-2 mt-2">
             <input
@@ -153,7 +152,7 @@ const CheckoutPage = () => {
             />
             Standard Shipping (Tk. 100)
           </label>
-        </div>
+        </div> */}
 
         <button
           type="submit"
@@ -190,8 +189,8 @@ const CheckoutPage = () => {
 
         <div className="border-t mt-4 pt-4 space-y-1 text-right">
           <p>Subtotal: ৳ {subtotal.toFixed(2)}</p>
-          <p>Shipping: ৳ {shipping.toFixed(2)}</p>
-          <p className="font-bold text-lg">Total: ৳ {total.toFixed(2)}</p>
+          {/* <p>Shipping: ৳ {shipping.toFixed(2)}</p>
+          <p className="font-bold text-lg">Total: ৳ {total.toFixed(2)}</p> */}
         </div>
       </div>
     </div>

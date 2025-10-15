@@ -8,9 +8,8 @@ export default function Navbar({
   links = [
     { label: "HOME", path: "/" },
     { label: "SHOP", path: "/shop" },
-    { label: "ABOUT US", path: "/about" },
     { label: "COLLECTION", path: "/collection" },
-    { label: "SHAREE", path: "/sharee" },
+    { label: "DRESS", path: "/dress" },
     { label: "BAGS", path: "/bags" },
     { label: "ADMIN DASHBOARD", path: "/admin" },
   ],

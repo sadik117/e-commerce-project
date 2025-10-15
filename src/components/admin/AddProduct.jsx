@@ -14,7 +14,7 @@ const AddProduct = () => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const categories = ["sharee", "panjabi", "t-shirt", "watch", "bag", "hijab", "collection", "cloths"];
+  const categories = ["sharee", "dress", "t-shirt", "watch", "bag", "hijab", "collection", "panjabi"];
   const genders = ["men", "women"];
   const colors = [
     { name: "black", code: "#000000" },

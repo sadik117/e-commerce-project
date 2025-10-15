@@ -10,6 +10,7 @@ import ViewOrders from "../components/admin/ViewOrders";
 import ErrorPage from "../components/pages/ErrorPage";
 import ProductDetails from "../components/pages/ProductDetails";
 import CheckoutPage from "../components/pages/CheckoutPage";
+import DressPage from "../components/pages/DressPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/checkout",
         Component: CheckoutPage
+      },
+      {
+        path: "/dress",
+        Component: DressPage
       },
       {
         path: "/admin",

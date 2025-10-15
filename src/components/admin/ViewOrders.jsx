@@ -70,9 +70,9 @@ export default function ViewOrders() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-500">
-            <p className="text-sm text-gray-600">Total Revenue</p>
+            <p className="text-sm text-gray-600">Total Order</p>
             <p className="text-2xl font-bold text-gray-900">
-              ৳ {orders.reduce((sum, order) => sum + order.total, 0).toFixed(2)}
+              ৳ {orders.reduce((sum, order) => sum + order.subtotal, 0).toFixed(2)}
             </p>
           </div>
 
@@ -82,7 +82,7 @@ export default function ViewOrders() {
               ৳{" "}
               {orders.length > 0
                 ? (
-                    orders.reduce((sum, order) => sum + order.total, 0) /
+                    orders.reduce((sum, order) => sum + order.subtotal, 0) /
                     orders.length
                   ).toFixed(2)
                 : "0.00"}

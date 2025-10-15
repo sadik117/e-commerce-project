@@ -11,6 +11,8 @@ import ErrorPage from "../components/pages/ErrorPage";
 import ProductDetails from "../components/pages/ProductDetails";
 import CheckoutPage from "../components/pages/CheckoutPage";
 import DressPage from "../components/pages/DressPage";
+import BagPage from "../components/pages/BagPage";
+import CollectionPage from "../components/pages/CollectionPage";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ export const router = createBrowserRouter([
       {
         path: "/dress",
         Component: DressPage
+      },
+      {
+        path: "/bags",
+        Component: BagPage
+      },
+      {
+        path: "/collection",
+        Component: CollectionPage
       },
       {
         path: "/admin",

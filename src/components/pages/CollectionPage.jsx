@@ -4,34 +4,32 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import Loading from "../layouts/Loading";
 
-export default function DressPage() {
+export default function CollectionPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortId, setSortId] = useState("featured");
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8; 
+  const productsPerPage = 8;
 
   const navigate = useNavigate();
 
-  // Sorting options
   const SORT_OPTIONS = [
     { id: "featured", label: "Featured", cmp: null },
     { id: "priceAsc", label: "Price: Low to High", cmp: (a, b) => a.price - b.price },
     { id: "priceDesc", label: "Price: High to Low", cmp: (a, b) => b.price - a.price },
   ];
 
-  // Fetch only dress products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get("http://localhost:3000/products");
         const all = res.data.products || res.data;
-        const dressProducts = all.filter(
-          (p) => p.category?.toLowerCase() === "dress"
+        const collectionProducts = all.filter(
+          (p) => p.category?.toLowerCase() === "collection"
         );
-        setProducts(dressProducts);
+        setProducts(collectionProducts);
       } catch (error) {
-        console.error("Error fetching dress products:", error);
+        console.error("Error fetching collection products:", error);
       } finally {
         setLoading(false);
       }
@@ -39,14 +37,12 @@ export default function DressPage() {
     fetchProducts();
   }, []);
 
-  // Apply sorting
   const sortedProducts = useMemo(() => {
     const sorter = SORT_OPTIONS.find((s) => s.id === sortId)?.cmp;
     if (sorter) return [...products].sort(sorter);
     return products;
   }, [products, sortId]);
 
-  // Pagination logic
   const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
   const currentProducts = sortedProducts.slice(startIndex, startIndex + productsPerPage);
@@ -58,18 +54,16 @@ export default function DressPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-12">
-      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-            Dress Collection
+            Collections
           </h1>
           <p className="text-gray-600">
-            Explore our curated collection of dresses for every occasion
+            Explore our curated collections — timeless designs and exclusive pieces.
           </p>
         </div>
 
-        {/* Sort dropdown */}
         <div className="mt-4 md:mt-0">
           <select
             value={sortId}
@@ -88,11 +82,12 @@ export default function DressPage() {
         </div>
       </div>
 
-      {/* Product Grid */}
       {loading ? (
         <Loading />
       ) : currentProducts.length === 0 ? (
-        <div className="text-center py-20 text-gray-500">No dresses found.</div>
+        <div className="text-center py-20 text-gray-500">
+          No collection items found.
+        </div>
       ) : (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -127,7 +122,6 @@ export default function DressPage() {
             ))}
           </div>
 
-          {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-10">
               <div className="join">

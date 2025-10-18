@@ -13,8 +13,9 @@ import CheckoutPage from "../components/pages/CheckoutPage";
 import DressPage from "../components/pages/DressPage";
 import BagPage from "../components/pages/BagPage";
 import CollectionPage from "../components/pages/CollectionPage";
-import Registration from "../components/firebase/Registration";
-import Login from "../components/firebase/Login";
+import Registration from "../components/authentication/Registration";
+import Login from "../components/authentication/Login";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +37,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        Component: CheckoutPage
+        element: <PrivateRoute>
+          <CheckoutPage></CheckoutPage>
+        </PrivateRoute>
       },
       {
         path: "/dress",

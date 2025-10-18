@@ -4,7 +4,7 @@ import './index.css';
 import { router } from './routes/Routes';
 import { RouterProvider } from 'react-router';
 import { ToastContainer } from 'react-toastify';
-import AuthProvider from './components/firebase/AuthProvider';
+import AuthProvider from './components/authentication/AuthProvider';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

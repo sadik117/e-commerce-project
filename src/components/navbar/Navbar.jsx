@@ -12,6 +12,7 @@ export default function Navbar({
     { label: "DRESS", path: "/dress" },
     { label: "BAGS", path: "/bags" },
     { label: "ADMIN DASHBOARD", path: "/admin" },
+    { label: "Registration", path: "/auth/registration" },
   ],
 }) {
   const [open, setOpen] = useState(false);

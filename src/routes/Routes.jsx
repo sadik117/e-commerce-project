@@ -16,6 +16,7 @@ import CollectionPage from "../components/pages/CollectionPage";
 import Registration from "../components/authentication/Registration";
 import Login from "../components/authentication/Login";
 import PrivateRoute from "./PrivateRoute";
+import ViewProducts from "../components/admin/ViewProducts";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
           {
             path: "orders",
             Component: ViewOrders
+          },
+          {
+            path: "view-products",
+            Component: ViewProducts
           }
         ] 
       }, 

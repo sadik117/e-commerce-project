@@ -45,6 +45,7 @@ export default function AdminDashboard() {
 
         {/* Links */}
         <nav className="flex-1 p-3 space-y-2">
+          {/* Add Product */}
           <NavLink
             to="add-product"
             className={({ isActive }) =>
@@ -67,6 +68,35 @@ export default function AdminDashboard() {
             {open && <span>Add Product</span>}
           </NavLink>
 
+          {/* View Products */}
+          <NavLink
+            to="view-products"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-md font-medium ${
+                isActive
+                  ? "bg-[#5b0e0e] text-white"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm4 4h10M7 12h10M7 16h6"
+              />
+            </svg>
+            {open && <span>View Products</span>}
+          </NavLink>
+
+          {/* View Orders */}
           <NavLink
             to="orders"
             className={({ isActive }) =>

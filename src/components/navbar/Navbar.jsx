@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 
@@ -12,7 +12,7 @@ export default function Navbar({
     { label: "DRESS", path: "/dress" },
     { label: "BAGS", path: "/bags" },
     { label: "ADMIN DASHBOARD", path: "/admin" },
-    { label: "Registration", path: "/auth/registration" },
+    { label: "REGISTRATION", path: "/auth/registration" },
   ],
 }) {
   const [open, setOpen] = useState(false);

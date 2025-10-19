@@ -18,6 +18,7 @@ import Login from "../components/authentication/Login";
 import PrivateRoute from "./PrivateRoute";
 import ViewProducts from "../components/admin/ViewProducts";
 import CouponPage from "../components/admin/CouponPage";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +58,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <AdminDashboard></AdminDashboard>,
+        element: <AdminRoute>
+           <AdminDashboard></AdminDashboard>
+        </AdminRoute>,
         children:[
           {
             index: true,
@@ -65,19 +68,27 @@ export const router = createBrowserRouter([
           },
           {
             path: "add-product",
-            Component: AddProduct
+            element: <AdminRoute>
+              <AddProduct></AddProduct>
+            </AdminRoute>
           },
           {
             path: "orders",
-            Component: ViewOrders
+            element: <AdminRoute>
+              <ViewOrders></ViewOrders>
+            </AdminRoute>
           },
           {
             path: "view-products",
-            Component: ViewProducts
+            element: <AdminRoute>
+              <ViewProducts></ViewProducts>
+            </AdminRoute>
           },
           {
             path: "coupons",
-            Component: CouponPage
+            element: <AdminRoute>
+              <CouponPage></CouponPage>
+            </AdminRoute>
           }
         ] 
       }, 

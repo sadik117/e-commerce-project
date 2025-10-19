@@ -1,41 +1,27 @@
 import React from "react";
 
 export default function Footer({
-  brand = "Robe Company",
+  brand = "Robe By Shamshad Company",
   phone = "09666200300",
   hours = "(8am–12pm)",
-  email = "support@example.com",
-  addressLines = ["Robe Company Ltd.", "123 Example Road", "City, Country"],
+  email = "support@gmail.com",
+  addressLines = ["Robe By Shamshad Company Ltd.", "Dhaka, Bangladesh"],
   year = new Date().getFullYear(),
 }) {
   const cols = {
     ABOUT: [
       "About Us",
-      "Careers",
-      "Awards & Recognition",
       "Investors",
-      "Franchise",
-      "Share Department",
+      "Franchise"
     ],
     INFORMATION: [
       "TERMS & CONDITIONS",
       "Payment Options",
       "Privacy Policy",
-      "Franchise Programme",
       "Coverage areas",
-    ],
-    "POPULAR BRANDS": [
-      "Brand One",
-      "Brand Two",
-      "Brand Three",
-      "Brand Four",
-      "Brand Five",
-      "Brand Six",
-      "Brand Seven",
     ],
     "CUSTOMER SERVICE": [
       "FAQs",
-      "MyAccount",
       "Store Locator",
       "Care Guide",
       "Contact Info",
@@ -44,10 +30,10 @@ export default function Footer({
   };
 
   return (
-    <footer className="bg-zinc-600 text-white">
+    <footer className="bg-[#0a0101] text-white">
       {/* Columns */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid gap-10 py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {/* 4 link groups */}
           {Object.entries(cols).map(([title, items]) => (
             <nav key={title} className="space-y-3">

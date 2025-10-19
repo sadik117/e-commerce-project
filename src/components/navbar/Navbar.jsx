@@ -1,23 +1,20 @@
- 
-import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../authentication/AuthProvider";
+import useUserRole from "../hooks/useUserRole";
+
 
 export default function Navbar({
   brand = "ROBE BY SHAMSHAD",
   announcement = "ALL SHIPPING TO USA ARE ON HOLD DUE TO NEW TARIFF ADVISORY UNTIL FURTHER NOTICE",
-  links = [
-    { label: "HOME", path: "/" },
-    { label: "SHOP", path: "/shop" },
-    { label: "COLLECTION", path: "/collection" },
-    { label: "DRESS", path: "/dress" },
-    { label: "BAGS", path: "/bags" },
-    { label: "ADMIN DASHBOARD", path: "/admin" },
-    { label: "REGISTRATION", path: "/auth/registration" },
-  ],
 }) {
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+
+  const { user, logOut } = useContext(AuthContext);
+  const { role, roleLoading } = useUserRole();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -55,6 +52,28 @@ export default function Navbar({
 
   const currentCartCount = cartItems.reduce((t, i) => t + i.quantity, 0);
 
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/auth/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
+  // Define dynamic nav links
+  const navLinks = [
+    { label: "HOME", path: "/" },
+    { label: "SHOP", path: "/shop" },
+    { label: "COLLECTION", path: "/collection" },
+    { label: "DRESS", path: "/dress" },
+    { label: "BAGS", path: "/bags" },
+  ];
+
+  if (!roleLoading && user && role === "admin") {
+    navLinks.push({ label: "ADMIN DASHBOARD", path: "/admin" });
+  }
+
   return (
     <header className="w-full border-b border-neutral-200 sticky top-0 z-50 bg-white">
       {/* Announcement Bar */}
@@ -81,8 +100,8 @@ export default function Navbar({
             </NavLink>
           </div>
 
-          {/* Center: Brand */}
-          <div className="flex flex-col items-center -2">
+          {/* Center: Brand & Nav Links */}
+          <div className="flex flex-col items-center">
             <NavLink
               to="/"
               className="font-semibold tracking-wide text-sm uppercase"
@@ -92,7 +111,7 @@ export default function Navbar({
 
             {/* Desktop Nav Links */}
             <nav className="hidden md:flex gap-6 mt-2 text-sm text-gray-700 font-medium">
-              {links.map((link) => (
+              {navLinks.map((link) => (
                 <NavLink
                   key={link.path}
                   to={link.path}
@@ -105,6 +124,23 @@ export default function Navbar({
                   {link.label}
                 </NavLink>
               ))}
+
+              {/* Auth Buttons */}
+              {!user ? (
+                <NavLink
+                  to="/auth/login"
+                  className="hover:text-[#5b0e0e] transition-colors"
+                >
+                  LOGIN
+                </NavLink>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="text-gray-700 hover:text-[#5b0e0e] font-medium"
+                >
+                  LOGOUT
+                </button>
+              )}
             </nav>
           </div>
 
@@ -130,7 +166,7 @@ export default function Navbar({
       {open && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-md">
           <nav className="flex flex-col px-4 py-3 space-y-2">
-            {links.map((link) => (
+            {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
@@ -144,6 +180,26 @@ export default function Navbar({
                 {link.label}
               </NavLink>
             ))}
+
+            {!user ? (
+              <NavLink
+                to="/auth/login"
+                onClick={() => setOpen(false)}
+                className="block py-2 px-3 rounded-lg hover:bg-gray-100"
+              >
+                LOGIN
+              </NavLink>
+            ) : (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setOpen(false);
+                }}
+                className="block py-2 px-3 rounded-lg text-left hover:bg-gray-100 text-red-600"
+              >
+                LOGOUT
+              </button>
+            )}
           </nav>
         </div>
       )}
@@ -229,7 +285,10 @@ export default function Navbar({
                     <span>Total:</span>
                     <span>Tk {calculateTotal().toLocaleString()}</span>
                   </div>
-                  <Link to="/checkout" className="w-full bg-[#5b0e0e] text-white py-3 px-3 rounded-lg hover:bg-[#4a0b0b] transition">
+                  <Link
+                    to="/checkout"
+                    className="w-full bg-[#5b0e0e] text-white py-3 px-3 rounded-lg hover:bg-[#4a0b0b] transition"
+                  >
                     Proceed to Checkout
                   </Link>
                 </div>

@@ -8,45 +8,45 @@ const Carousel = () => {
   const slides = [
     {
       id: 1,
-      image: "/src/assets/pexels-daredevil-27139274.jpg",
+      image: "https://i.postimg.cc/R06ngt2j/pexels-daredevil-27139274.jpg",
       title: "Celebrate Eid",
       subtitle: "Explore our new collection",
     },
     {
       id: 2,
-      image: "/src/assets/pexels-pratik-prasad-3736245-5585346.jpg",
+      image: "https://i.postimg.cc/Y97qQm7F/pexels-pratik-prasad-3736245-5585346.jpg",
       title: "Aesthetic Products",
       subtitle: "Explore our all new aesthetic products",
     },
     {
       id: 3,
-      image: "/src/assets/pexels-qazi-1297483.jpg",
+      image: "https://i.postimg.cc/MG2W8jn8/pexels-qazi-1297483.jpg",
       title: "Bride Products",
       subtitle: "Explore our full collection for a bride",
     },
     {
       id: 4,
-      image: "/src/assets/pexels-leeloothefirst-8938722.jpg",
+      image: "https://i.postimg.cc/0yfqhH1b/pexels-leeloothefirst-8938722.jpg",
       title: "Pay Online",
       subtitle: "Pay with your comfortable method",
     },
     {
       id: 5,
-      image: "/src/assets/pexels-n-voitkevich-6214155.jpg",
+      image: "https://i.postimg.cc/WpHcvJy8/pexels-n-voitkevich-6214155.jpg",
       title: "Shop Now",
       subtitle: "Sale is on, Buy your products now.",
     },
   ];
 
   return (
-    <div className="relative w-full bg-[#f8f8f8] mb-2">
+    <div className="relative w-full bg-[#f8f8f8] mb-2 px-5 mt-2">
       <Swiper
         modules={[Navigation, Autoplay]}
         navigation
         autoplay={{ delay: 4000 }}
         loop={true}
         slidesPerView={1}
-        className="w-full"
+        className="w-full rounded-2xl"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>

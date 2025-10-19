@@ -26,7 +26,7 @@ export default function ViewOrders() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:3000/orders");
+      const res = await axios.get("https://robe-by-shamshad-server.vercel.app/orders");
       setOrders(res.data);
     } catch (err) {
       console.error(err);

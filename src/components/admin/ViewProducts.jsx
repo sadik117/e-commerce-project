@@ -16,7 +16,7 @@ export default function ViewProducts() {
   // Fetch all products
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/products");
+      const res = await axios.get("https://robe-by-shamshad-server.vercel.app/products");
       setProducts(res.data.products || res.data);
     } catch (error) {
       toast.error("Failed to load products");
@@ -33,7 +33,7 @@ export default function ViewProducts() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
-      await axios.delete(`http://localhost:3000/products/${id}`);
+      await axios.delete(`https://robe-by-shamshad-server.vercel.app/products/${id}`);
       toast.success("Product deleted successfully");
       setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch {
@@ -62,7 +62,7 @@ export default function ViewProducts() {
     reader.onloadend = async () => {
       setUploading(true);
       try {
-        const res = await axios.post("http://localhost:3000/upload", { image: reader.result });
+        const res = await axios.post("https://robe-by-shamshad-server.vercel.app/upload", { image: reader.result });
         setForm((prev) => ({ ...prev, image: res.data.url }));
         toast.success("Image uploaded successfully");
       } catch (error) {
@@ -77,7 +77,7 @@ export default function ViewProducts() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/products/${editingProduct}`, form);
+      await axios.put(`https://robe-by-shamshad-server.vercel.app/products/${editingProduct}`, form);
       toast.success("Product updated successfully");
       setEditingProduct(null);
       fetchProducts();

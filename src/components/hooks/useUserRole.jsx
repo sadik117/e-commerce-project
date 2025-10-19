@@ -19,7 +19,7 @@ export default function useUserRole() {
       try {
         setRoleLoading(true);
         // 🔥 Your backend API URL here
-        const res = await axios.get(`http://localhost:3000/users/role/${user.email}`);
+        const res = await axios.get(`https://robe-by-shamshad-server.vercel.app/users/role/${user.email}`);
         setRole(res.data?.role || null);
       } catch (error) {
         console.error("Failed to fetch user role:", error);

@@ -13,7 +13,7 @@ export default function ProductDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/products/${id}`)
+      .get(`https://robe-by-shamshad-server.vercel.app/products/${id}`)
       .then((res) => setProduct(res.data.product))
       .catch((err) => console.error("Failed to load product:", err));
   }, [id]);

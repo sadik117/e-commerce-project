@@ -24,7 +24,7 @@ export default function DressPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/products");
+        const res = await axios.get("https://robe-by-shamshad-server.vercel.app/products");
         const all = res.data.products || res.data;
         const dressProducts = all.filter(
           (p) => p.category?.toLowerCase() === "dress"

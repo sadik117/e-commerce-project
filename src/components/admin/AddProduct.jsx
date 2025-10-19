@@ -61,13 +61,13 @@ const AddProduct = () => {
     setLoading(true);
     try {
       // Upload image → Cloudinary (via backend)
-      const uploadRes = await axios.post("http://localhost:3000/upload", {
+      const uploadRes = await axios.post("https://robe-by-shamshad-server.vercel.app/upload", {
         image,
       });
       const imageUrl = uploadRes.data.url;
 
       const productData = { ...form, image: imageUrl };
-      await axios.post("http://localhost:3000/products", productData);
+      await axios.post("https://robe-by-shamshad-server.vercel.app/products", productData);
 
       toast.success("Product added successfully!");
       

@@ -40,7 +40,7 @@ const CheckoutPage = () => {
       return;
     }
     try {
-      const { data } = await axios.post("http://localhost:3000/verify-coupon", {
+      const { data } = await axios.post("https://robe-by-shamshad-server.vercel.app/verify-coupon", {
         code: couponCode,
       });
 
@@ -73,7 +73,7 @@ const CheckoutPage = () => {
         createdAt: new Date(),
       };
 
-      await axios.post("http://localhost:3000/orders", orderData);
+      await axios.post("https://robe-by-shamshad-server.vercel.app/orders", orderData);
       toast.success("Order placed successfully!");
 
       // Reset form & cart

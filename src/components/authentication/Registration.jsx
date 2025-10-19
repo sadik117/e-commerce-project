@@ -63,7 +63,7 @@ export default function Registration() {
       };
 
       //  Send to backend
-      await axios.post("http://localhost:3000/users", userData);
+      await axios.post("https://robe-by-shamshad-server.vercel.app/users", userData);
 
       toast.success("Registration successful!");
       navigate(location.state?.from || "/");
@@ -88,7 +88,7 @@ export default function Registration() {
           createdAt: new Date().toISOString(),
         };
 
-        await axios.post("http://localhost:3000/users", userData);
+        await axios.post("https://robe-by-shamshad-server.vercel.app/users", userData);
 
         toast.success("Google Sign-Up successful!");
         navigate(location.state?.from || "/");

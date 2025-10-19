@@ -45,7 +45,7 @@ export default function Login() {
         lastLogin: new Date().toISOString(),
       };
 
-      await axios.post("http://localhost:3000/users", userData);
+      await axios.post("https://robe-by-shamshad-server.vercel.app/users", userData);
 
       toast.success("Login successful!");
       navigate(location.state?.from || "/");
@@ -70,7 +70,7 @@ export default function Login() {
           lastLogin: new Date().toISOString(),
         };
 
-        await axios.post("http://localhost:3000/users", userData);
+        await axios.post("https://robe-by-shamshad-server.vercel.app/users", userData);
 
         toast.success("Google Sign-In successful!");
         navigate(location.state?.from || "/");

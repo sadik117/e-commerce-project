@@ -16,7 +16,7 @@ export default function CouponPage() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/users");
+      const res = await axios.get("https://robe-by-shamshad-server.vercel.app/users");
       setUsers(res.data.users || res.data);
     } catch (err) {
       toast.error("Failed to fetch users");
@@ -26,7 +26,7 @@ export default function CouponPage() {
   const fetchCoupons = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:3000/coupons");
+      const res = await axios.get("https://robe-by-shamshad-server.vercel.app/coupons");
       setCoupons(res.data.coupons || res.data);
     } catch (err) {
       toast.error("Failed to fetch coupons");
@@ -48,7 +48,7 @@ export default function CouponPage() {
     }
 
     try {
-      await axios.post("http://localhost:3000/coupons", form);
+      await axios.post("https://robe-by-shamshad-server.vercel.app/coupons", form);
       toast.success("Coupon assigned successfully!");
       setForm({ userEmail: "", code: "", discount: "" });
       fetchCoupons();
@@ -61,7 +61,7 @@ export default function CouponPage() {
     if (!window.confirm("Are you sure you want to delete this coupon?")) return;
     
     try {
-      await axios.delete(`http://localhost:3000/coupons/${couponId}`);
+      await axios.delete(`https://robe-by-shamshad-server.vercel.app/coupons/${couponId}`);
       toast.success("Coupon deleted successfully!");
       fetchCoupons();
     } catch (err) {

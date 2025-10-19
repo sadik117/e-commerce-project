@@ -17,6 +17,7 @@ import Registration from "../components/authentication/Registration";
 import Login from "../components/authentication/Login";
 import PrivateRoute from "./PrivateRoute";
 import ViewProducts from "../components/admin/ViewProducts";
+import CouponPage from "../components/admin/CouponPage";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
           {
             path: "view-products",
             Component: ViewProducts
+          },
+          {
+            path: "coupons",
+            Component: CouponPage
           }
         ] 
       }, 

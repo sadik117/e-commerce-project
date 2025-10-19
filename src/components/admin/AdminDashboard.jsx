@@ -14,7 +14,9 @@ export default function AdminDashboard() {
       >
         {/* Brand */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <span className="font-bold text-lg">{open ? "Admin Panel" : "AP"}</span>
+          <span className="font-bold text-lg">
+            {open ? "Admin Panel" : "AP"}
+          </span>
           <button
             className="text-gray-500 hover:text-gray-800"
             onClick={() => setOpen(!open)}
@@ -27,7 +29,12 @@ export default function AdminDashboard() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
               <svg
@@ -37,7 +44,12 @@ export default function AdminDashboard() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             )}
           </button>
@@ -63,7 +75,12 @@ export default function AdminDashboard() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
             </svg>
             {open && <span>Add Product</span>}
           </NavLink>
@@ -114,9 +131,42 @@ export default function AdminDashboard() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18v18H3V3z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 3h18v18H3V3z"
+              />
             </svg>
             {open && <span>View Orders</span>}
+          </NavLink>
+
+          {/* Coupon Management */}
+          <NavLink
+            to="coupons"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-md font-medium ${
+                isActive
+                  ? "bg-[#5b0e0e] text-white"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 14l2-2 4 4m0 0l-4-4 2-2m2 6h6m-6 0V4"
+              />
+            </svg>
+            {open && <span>Coupons</span>}
           </NavLink>
         </nav>
       </aside>

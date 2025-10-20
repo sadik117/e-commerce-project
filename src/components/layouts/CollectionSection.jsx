@@ -3,7 +3,7 @@ import { Link } from "react-router";
 // Collection.jsx
 export default function CollectionSection() {
   return (
-    <div className="px-4 md:px-8 mt-8">
+    <div className="px-8 mt-8">
       <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
         {/* Collection Image */}
         <img

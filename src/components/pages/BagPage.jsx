@@ -64,7 +64,7 @@ export default function BagPage() {
           </p>
         </div>
 
-        <div className="mt-4 md:mt-0">
+        <div className="mt-4 md:mt-0 dark:text-white">
           <select
             value={sortId}
             onChange={(e) => {

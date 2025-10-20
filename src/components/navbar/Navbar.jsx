@@ -96,7 +96,7 @@ export default function Navbar({
               to="/"
               className="inline-grid place-items-center w-9 h-9 rounded-full border border-neutral-300"
             >
-              <span className="font-black text-lg">R</span>
+              <img src="https://i.postimg.cc/rpbW2KgN/rbs-logo.jpg" className="rounded-2xl"></img>
             </NavLink>
           </div>
 
@@ -104,7 +104,7 @@ export default function Navbar({
           <div className="flex flex-col items-center">
             <NavLink
               to="/"
-              className="font-semibold tracking-wide text-sm uppercase"
+              className="font-bold tracking-wide text-sm uppercase"
             >
               {brand}
             </NavLink>

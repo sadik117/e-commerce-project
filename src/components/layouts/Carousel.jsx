@@ -39,11 +39,10 @@ const Carousel = () => {
   ];
 
   return (
-    <div className="relative w-full bg-[#f8f8f8] mb-2 px-5 mt-2">
+    <div className="relative w-full bg-[#f8f8f8] px-5 mt-2">
       <Swiper
         modules={[Navigation, Autoplay]}
-        navigation
-        autoplay={{ delay: 4000 }}
+        autoplay={{ delay: 3000 }}
         loop={true}
         slidesPerView={1}
         className="w-full rounded-2xl"
@@ -51,7 +50,7 @@ const Carousel = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-[500px] flex justify-center items-center bg-cover bg-center"
+              className="relative w-full h-[200px] md:h-[350px] flex justify-center items-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
               {/* Overlay */}
@@ -61,7 +60,7 @@ const Carousel = () => {
               <div className="relative z-10 text-center text-white">
                 <h1 className="text-3xl font-bold mb-2">{slide.title}</h1>
                 <p className="text-md mb-6">{slide.subtitle}</p>
-                <Link to="/shop" className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-md font-semibold">
+                <Link to="/shop" className="bg-[#f04141] hover:bg-red-700 px-4 md:px-6 py-2 md:py-3 rounded-md font-semibold">
                   Shop Now
                 </Link>
               </div>

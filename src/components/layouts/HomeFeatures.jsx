@@ -24,13 +24,13 @@ const HomeFeatures = () => {
     },
     {
       icon: <Leaf className="w-10 h-10 text-[#5b0e0e]" />,
-      title: "SOCIAL MEDIA",
+      title: "ECO-FRIENDLY",
       desc: "Engaging your feed",
     },
   ];
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-6 md:py-8 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
           {features.map((item, index) => (

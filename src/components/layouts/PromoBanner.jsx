@@ -1,9 +1,8 @@
 import { Link } from "react-router";
 
-
 const PromoBanner = () => {
   return (
-    <section className="relative bg-[#5b0e0e] text-white py-12 px-6 my-10 overflow-hidden mx-5 rounded-xl">
+    <section className="relative bg-[#5b0e0e] text-white py-12 px-6 my-5 md:my-8 overflow-hidden mx-5 rounded-xl">
       {/* Background pattern or image (optional) */}
       <div
         className="absolute inset-0 opacity-20 bg-cover bg-center py-10"

@@ -109,7 +109,7 @@ export default function ShopPage() {
     <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 lg:py-10">
       <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
         {/* LEFT FILTERS */}
-        <aside className="md:top-20 md:sticky">
+        <aside className="md:top-20 md:sticky dark:text-white">
           <div className="rounded-xl border border-base-300 bg-base-200 p-4 md:p-5 space-y-5">
             <h2 className="text-lg font-extrabold tracking-wide">Filters</h2>
 

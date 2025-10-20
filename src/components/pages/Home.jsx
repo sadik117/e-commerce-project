@@ -10,10 +10,11 @@ const Home = () => {
       <Carousel></Carousel>
       <CollectionSection></CollectionSection>
       <PromoBanner></PromoBanner>
-      {/* <div className="px-10 rounded-3xl mt-5 md:mt-8">
+      {/* <div className="px-10 rounded-3xl mt-5 md:mt-8 justify-center items-center flex">
         <img
           src="https://i.postimg.cc/hGLLrnVG/Banner-rbs-1.png"
           alt="banner"
+          className="h-64"
         />
       </div> */}
       <HomeFeatures></HomeFeatures>

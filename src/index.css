@@ -12,3 +12,34 @@
 .animate-slideIn {
   animation: slideIn 0.3s ease-out forwards;
 }
+
+/* Default Light Mode */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f5f5f5;
+  --border-color: #e5e5e5;
+  --secondary-text: #555555;
+}
+
+/* Dark Mode */
+.dark {
+  --bg-color: #0f0f0f;
+  --text-color: #ffffff;
+  --card-bg: #1a1a1a;
+  --border-color: #333333;
+  --secondary-text: #b3b3b3;
+}
+
+/* Apply globally */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* For cards, sections, navbar, etc */
+.card, .section, .navbar, .footer {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}

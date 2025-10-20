@@ -39,7 +39,7 @@ const Carousel = () => {
   ];
 
   return (
-    <div className="relative w-full bg-[#f8f8f8] px-5 mt-2">
+    <div className="relative w-full bg-[#f8f8f8] px-8 mt-2">
       <Swiper
         modules={[Navigation, Autoplay]}
         autoplay={{ delay: 3000 }}

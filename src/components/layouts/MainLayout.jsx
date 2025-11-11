@@ -2,16 +2,18 @@ import React from "react";
 import Navbar from "../navbar/Navbar";
 import { Outlet } from "react-router";
 import Footer from "../footer/Footer";
-
+import useFacebookTracking from "../useFacebookTracking";
 
 const MainLayout = () => {
+  useFacebookTracking(); //  Track every route change automatically
+
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <div className="min-h-[calc(100vh-324px)]">
-        <Outlet></Outlet>
+        <Outlet />
       </div>
-        <Footer></Footer>
+      <Footer />
     </>
   );
 };

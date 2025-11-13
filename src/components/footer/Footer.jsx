@@ -104,7 +104,7 @@ export default function Footer({
 
           {/* Socials */}
           <div className="flex items-center gap-2">
-            <a className="btn btn-ghost btn-circle" aria-label="Facebook">
+            <a href="http://facebook.com/robebyshamshad" target="_blank" className="btn btn-ghost btn-circle" aria-label="Facebook">
               {/* Facebook */}
               <svg
                 width="20"

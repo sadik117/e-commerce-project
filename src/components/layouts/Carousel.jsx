@@ -8,13 +8,13 @@ const Carousel = () => {
   const slides = [
     {
       id: 1,
-      image: "https://i.postimg.cc/R06ngt2j/pexels-daredevil-27139274.jpg",
-      title: "Celebrate Eid",
-      subtitle: "Explore our new collection",
+      image: "https://i.ibb.co.com/WWkvYGjy/Banner-rbs-1.png",
+      title: "Celebrate Winter",
+      subtitle: "Explore our new winter collection",
     },
     {
       id: 2,
-      image: "https://i.postimg.cc/Y97qQm7F/pexels-pratik-prasad-3736245-5585346.jpg",
+      image: "https://i.ibb.co.com/ycnZpTPk/photo-2025-11-13-18-33-20.jpg",
       title: "Aesthetic Products",
       subtitle: "Explore our all new aesthetic products",
     },
@@ -60,7 +60,7 @@ const Carousel = () => {
               <div className="relative z-10 text-center text-white">
                 <h1 className="text-3xl font-bold mb-2">{slide.title}</h1>
                 <p className="text-md mb-6">{slide.subtitle}</p>
-                <Link to="/shop" className="bg-[#f04141] hover:bg-red-700 px-4 md:px-6 py-2 md:py-3 rounded-md font-semibold">
+                <Link to="/shop" className="bg-[#f04141] hover:bg-red-700 px-2 md:px-4 py-1 md:py-3 rounded-md font-semibold">
                   Shop Now
                 </Link>
               </div>

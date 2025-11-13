@@ -42,10 +42,10 @@ It’s built with **React + Tailwind CSS + Firebase + Express.js + MongoDB**, fe
 |-------|-------------|
 | **Frontend** | React, React Router, Tailwind CSS |
 | **Backend** | Node.js, Express.js |
-| **Database** | MongoDB (with Mongoose) |
+| **Database** | MongoDB  |
 | **Auth** | Firebase Authentication |
 | **Storage** | Cloudinary (for product images) |
-| **Deployment** | Vercel (client) & Render/Atlas (server) |
+| **Deployment** | Vercel (client & server) |
 
 ---
 

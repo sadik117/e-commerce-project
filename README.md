@@ -68,3 +68,12 @@ POST /products (Admin only)
 PATCH /products/:id
 DELETE /products/:id
 
+💡 Future Enhancements
+
+Stripe / SSLCommerz payment gateway integration
+
+Order tracking system
+
+Product reviews & ratings
+
+Email notifications

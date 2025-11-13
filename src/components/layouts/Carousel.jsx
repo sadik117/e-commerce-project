@@ -27,8 +27,8 @@ const Carousel = () => {
     {
       id: 4,
       image: "https://i.postimg.cc/0yfqhH1b/pexels-leeloothefirst-8938722.jpg",
-      title: "Pay Online",
-      subtitle: "Pay with your comfortable method",
+      title: "Any time return policy",
+      subtitle: "Return your product any time you want",
     },
     {
       id: 5,

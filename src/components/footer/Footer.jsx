@@ -128,7 +128,7 @@ export default function Footer({
                 <path d="M18.244 2h3.166l-6.92 7.91L22.5 22h-6.17l-4.83-6.31L5.82 22H2.65l7.4-8.45L1.5 2h6.31l4.36 5.77L18.244 2zm-1.08 18h1.75L7.01 4h-1.8l12.954 16z" />
               </svg>
             </a>
-            <a className="btn btn-ghost btn-circle" aria-label="Instagram">
+            <a href="https://www.instagram.com/robebyshamshad/" target="_blank" className="btn btn-ghost btn-circle" aria-label="Instagram">
               {/* Instagram */}
               <svg
                 width="20"

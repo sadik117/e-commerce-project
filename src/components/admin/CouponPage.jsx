@@ -11,9 +11,11 @@ export default function CouponPage() {
     userEmail: "",
     code: "",
     discount: "",
+    forAll: false,
   });
   const [loading, setLoading] = useState(false);
 
+  // Fetch users
   const fetchUsers = async () => {
     try {
       const res = await axios.get("https://robe-by-shamshad-server.vercel.app/users");
@@ -23,6 +25,7 @@ export default function CouponPage() {
     }
   };
 
+  // Fetch coupons
   const fetchCoupons = async () => {
     try {
       setLoading(true);
@@ -40,26 +43,35 @@ export default function CouponPage() {
     fetchCoupons();
   }, []);
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.userEmail || !form.code || !form.discount) {
+    if (!form.forAll && !form.userEmail) {
+      toast.error("Please select a user or choose 'Assign to all'");
+      return;
+    }
+    if (!form.code || !form.discount) {
       toast.error("Please fill all fields");
       return;
     }
 
     try {
       await axios.post("https://robe-by-shamshad-server.vercel.app/coupons", form);
-      toast.success("Coupon assigned successfully!");
-      setForm({ userEmail: "", code: "", discount: "" });
+      toast.success(
+        form.forAll
+          ? "Coupon assigned to all users successfully!"
+          : "Coupon assigned successfully!"
+      );
+      setForm({ userEmail: "", code: "", discount: "", forAll: false });
       fetchCoupons();
     } catch (err) {
       toast.error("Failed to assign coupon");
     }
   };
 
+  // Delete coupon
   const handleDeleteCoupon = async (couponId) => {
     if (!window.confirm("Are you sure you want to delete this coupon?")) return;
-    
     try {
       await axios.delete(`https://robe-by-shamshad-server.vercel.app/coupons/${couponId}`);
       toast.success("Coupon deleted successfully!");
@@ -79,7 +91,7 @@ export default function CouponPage() {
             Coupon Management
           </h1>
           <p className="text-gray-600 text-sm sm:text-base">
-            Assign and manage discount coupons for users
+            Assign and manage percentage-based discount coupons for users
           </p>
         </div>
 
@@ -89,28 +101,43 @@ export default function CouponPage() {
             <Plus size={20} className="text-green-600" />
             Assign New Coupon
           </h2>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* User Email Select */}
-            <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                <Mail size={16} className="text-gray-400" />
-                User Email
+            {/* Assign to All Users Checkbox */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="forAll"
+                checked={form.forAll}
+                onChange={(e) => setForm({ ...form, forAll: e.target.checked })}
+              />
+              <label htmlFor="forAll" className="text-sm font-medium text-gray-700">
+                Assign to all users
               </label>
-              <select
-                value={form.userEmail}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
-                onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
-                required
-              >
-                <option value="">Select User Email</option>
-                {users.map((user) => (
-                  <option key={user._id} value={user.email}>
-                    {user.email}
-                  </option>
-                ))}
-              </select>
             </div>
+
+            {/* User Email Dropdown (hidden if forAll selected) */}
+            {!form.forAll && (
+              <div>
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                  <Mail size={16} className="text-gray-400" />
+                  User Email
+                </label>
+                <select
+                  value={form.userEmail}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
+                  required={!form.forAll}
+                >
+                  <option value="">Select User Email</option>
+                  {users.map((user) => (
+                    <option key={user._id} value={user.email}>
+                      {user.email}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             {/* Coupon Code */}
             <div>
@@ -120,37 +147,38 @@ export default function CouponPage() {
               </label>
               <input
                 type="text"
-                placeholder="Enter coupon code (e.g., SUMMER25)"
+                placeholder="Enter coupon code (e.g., SAVE10)"
                 value={form.code}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base uppercase"
                 onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
                 required
               />
             </div>
 
-            {/* Discount Amount */}
+            {/* Discount Percentage */}
             <div>
               <label className="flex text-sm font-medium text-gray-700 mb-2 items-center gap-2">
                 <DollarSign size={16} className="text-gray-400" />
-                Discount Amount (৳)
+                Discount Percentage (%)
               </label>
               <input
                 type="number"
-                placeholder="Enter discount amount in Taka"
+                placeholder="Enter discount percentage (1 - 100)"
                 value={form.discount}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 onChange={(e) => setForm({ ...form, discount: e.target.value })}
                 min="1"
+                max="100"
                 required
               />
             </div>
 
-            <button 
+            <button
               type="submit"
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm sm:text-base flex items-center justify-center gap-2"
             >
               <Plus size={18} />
-              Assign Coupon
+              {form.forAll ? "Assign to All Users" : "Assign Coupon"}
             </button>
           </form>
         </div>
@@ -189,7 +217,7 @@ export default function CouponPage() {
                         Coupon Code
                       </th>
                       <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Discount
+                        Discount (%)
                       </th>
                       <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Created Date
@@ -202,22 +230,20 @@ export default function CouponPage() {
                   <tbody className="divide-y divide-gray-200">
                     {coupons.map((coupon) => (
                       <tr key={coupon._id} className="hover:bg-gray-50 transition-colors">
-                        <td className="p-4 text-sm text-gray-900">
-                          {coupon.userEmail}
-                        </td>
+                        <td className="p-4 text-sm text-gray-900">{coupon.userEmail}</td>
                         <td className="p-4">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                             {coupon.code}
                           </span>
                         </td>
                         <td className="p-4 text-sm font-semibold text-green-600">
-                          ৳ {coupon.discount}
+                          {coupon.discount}%
                         </td>
                         <td className="p-4 text-sm text-gray-500">
-                          {new Date(coupon.createdAt).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
+                          {new Date(coupon.createdAt).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
                           })}
                         </td>
                         <td className="p-4">
@@ -246,7 +272,7 @@ export default function CouponPage() {
                             {coupon.code}
                           </span>
                           <span className="text-sm font-semibold text-green-600">
-                            ৳ {coupon.discount}
+                            {coupon.discount}%
                           </span>
                         </div>
                         <p className="text-sm text-gray-900 font-medium truncate">

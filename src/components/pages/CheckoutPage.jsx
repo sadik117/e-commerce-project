@@ -31,7 +31,7 @@ const CheckoutPage = () => {
     cart?.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0) ||
     0;
 
-  const finalTotal = Math.max(subtotal - (discount || 0), 0);
+  const finalTotal = Math.max(subtotal - (subtotal*discount/100 || 0), 0);
 
   //  Apply Coupon (fixed amount from backend)
   const applyCoupon = async () => {
@@ -46,7 +46,7 @@ const CheckoutPage = () => {
 
       if (data.valid) {
         setDiscount(data.discountAmount); // fixed discount
-        toast.success(`Coupon Applied! ৳${data.discountAmount} off`);
+        toast.success(`Coupon Applied! ${data.discountAmount}% off`);
       } else {
         toast.error(data.message || "Invalid Coupon");
       }
@@ -212,7 +212,7 @@ const CheckoutPage = () => {
 
         <div className="border-t mt-4 pt-4 space-y-1 text-right">
           <p>Subtotal: ৳ {Number(subtotal).toFixed(2)}</p>
-          <p>Discount: -৳ {Number(discount || 0).toFixed(2)}</p>
+          <p>Discount: ৳ {Number(subtotal*discount/100 || 0).toFixed(2)}</p>
           <p className="font-bold text-lg">
             Total: ৳ {Number(finalTotal || 0).toFixed(2)}
           </p>

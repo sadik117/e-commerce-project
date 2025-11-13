@@ -2,9 +2,9 @@ import React from "react";
 
 export default function Footer({
   brand = "Robe By Shamshad Company",
-  phone = "09666200300",
+  phone = "+8801401836480",
   hours = "(8am–12pm)",
-  email = "support@gmail.com",
+  email = "Shamshadrobe@gmail.com",
   addressLines = ["Robe By Shamshad Company Ltd.", "Dhaka, Bangladesh"],
   year = new Date().getFullYear(),
 }) {

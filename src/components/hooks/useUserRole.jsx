@@ -18,7 +18,7 @@ export default function useUserRole() {
 
       try {
         setRoleLoading(true);
-        // 🔥 Your backend API URL here
+        //  Backend API URL 
         const res = await axios.get(`https://robe-by-shamshad-server.vercel.app/users/role/${user.email}`);
         setRole(res.data?.role || null);
       } catch (error) {

@@ -55,8 +55,7 @@ export default function ShopPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("https://robe-by-shamshad-server.vercel.app/products");
-        console.log(res);
+        const res = await axios.get("https://robe-by-shamshad-server.vercel.app/products"); 
         setProducts(res.data.products || []);
       } catch (error) {
         console.error("Error fetching products:", error);

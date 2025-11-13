@@ -1,7 +1,7 @@
 // src/hooks/useFacebookTracking.js
 import { useEffect } from "react";
-import { trackPageView } from "../metaPixel";
 import { useLocation } from "react-router";
+import { trackPageView } from "./metaPixel";
 
 const useFacebookTracking = () => {
   const location = useLocation();

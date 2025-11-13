@@ -1,16 +1,70 @@
-# React + Vite
+# 👗 ROBE BY SHAMSHAD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**ROBE BY SHAMSHAD** is a modern eCommerce web application for fashion and luxury apparel.  
+It’s built with **React + Tailwind CSS + Firebase + Express.js + MongoDB**, featuring a full shopping experience — from browsing collections to secure checkout, with admin management and dark mode support.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
 
-## React Compiler
+### 🛍️ Customer Features
+- Browse collections (Dresses, Bags, Accessories)
+- Product search with instant suggestions
+- Add to **Cart** and **Wishlist**
+- Update and remove items dynamically
+- Apply **coupon codes** at checkout
+- Responsive UI (mobile-first)
+- Light/Dark mode toggle 🌙
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔐 Authentication
+- Firebase Email/Password registration & login
+- Google OAuth integration (optional)
+- Persistent login state
+- Protected routes for checkout & admin
 
-## Expanding the ESLint configuration
+### 💳 Checkout System
+- Cart summary with price calculation
+- Coupon discount verification (`/verify-coupon`)
+- Order submission to backend (`/orders`)
+- Real-time order validation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛠️ Admin Features
+- View all products with CRUD (Create, Read, Update, Delete)
+- Add new items (with image upload via Cloudinary)
+- Manage inventory and prices
+- View user orders and status updates
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | React, React Router, Tailwind CSS |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB (with Mongoose) |
+| **Auth** | Firebase Authentication |
+| **Storage** | Cloudinary (for product images) |
+| **Deployment** | Vercel (client) & Render/Atlas (server) |
+
+---
+
+🌐 API Endpoints
+🛒 Orders
+
+POST /orders
+Save user order to the database.
+
+🎟️ Coupon Verification
+
+POST /verify-coupon
+Validate coupon and return discount amount.
+
+📦 Products
+
+GET /products
+GET /products/:id
+POST /products (Admin only)
+PATCH /products/:id
+DELETE /products/:id
+

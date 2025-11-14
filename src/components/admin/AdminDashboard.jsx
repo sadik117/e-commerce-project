@@ -168,6 +168,35 @@ export default function AdminDashboard() {
             </svg>
             {open && <span>Coupons</span>}
           </NavLink>
+
+          {/* Slider Management */}
+          <NavLink
+            to="update-slider"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-md font-medium ${
+                isActive
+                  ? "bg-[#5b0e0e] text-white"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v12m-6-6h12M6 12a2 2 0 110-4 2 2 0 010 4zm12 0a2 2 0 110-4 2 2 0 010 4z"
+              />
+            </svg>
+
+            {open && <span>Slider Update</span>}
+          </NavLink>
         </nav>
       </aside>
 

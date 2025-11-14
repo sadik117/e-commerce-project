@@ -19,6 +19,7 @@ import PrivateRoute from "./PrivateRoute";
 import ViewProducts from "../components/admin/ViewProducts";
 import CouponPage from "../components/admin/CouponPage";
 import AdminRoute from "./AdminRoute";
+import SliderUpdate from "../components/admin/SliderUpdate";
 
 export const router = createBrowserRouter([
   {
@@ -89,7 +90,13 @@ export const router = createBrowserRouter([
             element: <AdminRoute>
               <CouponPage></CouponPage>
             </AdminRoute>
-          }
+          },
+          {
+            path: "update-slider",
+            element: <AdminRoute>
+              <SliderUpdate></SliderUpdate>
+            </AdminRoute>
+          },
         ] 
       }, 
       {

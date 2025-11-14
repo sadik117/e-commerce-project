@@ -1,4 +1,3 @@
-// src/components/Carousel.jsx
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -14,12 +13,39 @@ const Carousel = () => {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const res = await fetch("https://robe-by-shamshad-server.vercel.app/slides"); 
-        const data = await res.json();
+        const response = await fetch("/api/slides");
+        const data = await response.json();
         setSlides(data);
-      } catch (err) {
-        console.error(err);
-        // optional fallback
+      } catch (error) {
+        console.error("Error fetching slides:", error);
+        // Fallback to hardcoded data if API fails (optional)
+        setSlides([
+          {
+            id: 1,
+            image: "https://i.ibb.co.com/v42d4tKQ/IMG-5767.png",
+            title: "Celebrate Winter",
+            subtitle: "Explore our new winter collection",
+          },
+          {
+            id: 2,
+            image: "https://i.ibb.co.com/LD2GLr5Z/IMG-5764.png",
+            title: "Aesthetic Products",
+            subtitle: "Explore our all new aesthetic products",
+          },
+          {
+            id: 3,
+            image: "https://i.ibb.co.com/B2LXq9YW/IMG-5766.png",
+            title: "Bride Products",
+            subtitle: "Explore our full collection for a bride",
+          },
+          {
+            id: 4,
+            image:
+              "https://i.ibb.co.com/ycnZpTPk/photo-2025-11-13-18-33-20.jpg",
+            title: "Any time return policy",
+            subtitle: "Return your product any time you want",
+          },
+        ]);
       } finally {
         setLoading(false);
       }
@@ -29,8 +55,8 @@ const Carousel = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-[200px] md:h-[370px] flex items-center justify-center bg-gray-200">
-       <Loading></Loading>
+      <div className="w-full h-[200px] md:h-[370px] flex items-center justify-center">
+        <Loading></Loading>
       </div>
     );
   }
@@ -42,37 +68,35 @@ const Carousel = () => {
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         slidesPerView={1}
-        navigation={true}
-        className="w-full rounded-2xl overflow-hidden"
-        style={{ aspectRatio: "21 / 9" }}   // fluid on all screens
+        navigation={false} // Enable navigation arrows
+        className="w-full rounded-2xl aspect-[16/9] sm:aspect-[21/9] md:aspect-auto" // Fluid aspect ratio for responsiveness
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-[180px] sm:h-[250px] md:h-[370px] lg:h-[450px] bg-cover bg-center flex flex-col justify-center items-center"
+              className="relative w-full h-[180px] sm:h-[250px] md:h-[370px] lg:h-[450px] flex flex-col justify-center items-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              {/* Dark gradient for readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-
-              <div className="relative z-10 text-center text-white px-4">
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 drop-shadow-lg">
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            </div>
+          </SwiperSlide>
+        ))}
+        {/* Text content */}
+        <div className="relative z-10 text-center text-white px-4">
+          {/* <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 drop-shadow-lg">
                   {slide.title}
                 </h2>
                 <p className="text-sm sm:text-base md:text-lg lg:text-xl font-medium drop-shadow-md">
                   {slide.subtitle}
-                </p>
-
-                <Link
-                  to="/shop"
-                  className="mt-3 sm:mt-4 inline-block bg-[#f04141] hover:bg-red-700 px-3 sm:px-4 py-1.5 sm:py-2 md:py-3 rounded-md font-semibold text-sm sm:text-base md:text-lg transition"
-                >
-                  Shop Now
-                </Link>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
+                </p> */}
+          <Link
+            to="/shop"
+            className="mt-2 sm:mt-4 inline-block bg-[#f04141] hover:bg-red-700 px-3 sm:px-4 py-1.5 sm:py-1 md:py-2 rounded-md font-semibold text-sm sm:text-base md:text-lg"
+          >
+            Shop Now
+          </Link>
+        </div>
       </Swiper>
     </div>
   );

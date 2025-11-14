@@ -91,12 +91,12 @@ export const router = createBrowserRouter([
               <CouponPage></CouponPage>
             </AdminRoute>
           },
-          {
-            path: "update-slider",
-            element: <AdminRoute>
-              <SliderUpdate></SliderUpdate>
-            </AdminRoute>
-          },
+          // {
+          //   path: "update-slider",
+          //   element: <AdminRoute>
+          //     <SliderUpdate></SliderUpdate>
+          //   </AdminRoute>
+          // },
         ] 
       }, 
       {

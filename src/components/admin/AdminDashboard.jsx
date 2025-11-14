@@ -170,7 +170,7 @@ export default function AdminDashboard() {
           </NavLink>
 
           {/* Slider Management */}
-          <NavLink
+          {/* <NavLink
             to="update-slider"
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2 rounded-md font-medium ${
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
             </svg>
 
             {open && <span>Slider Update</span>}
-          </NavLink>
+          </NavLink> */}
         </nav>
       </aside>
 

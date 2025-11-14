@@ -287,6 +287,7 @@ export default function Navbar({
                   </div>
                   <Link
                     to="/checkout"
+                    onClick={ ()=> setCartOpen(false)}
                     className="w-full bg-[#5b0e0e] text-white py-3 px-3 rounded-lg hover:bg-[#4a0b0b] transition"
                   >
                     Proceed to Checkout

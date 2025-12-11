@@ -38,18 +38,18 @@ export default function ProductDetails() {
     }
 
     localStorage.setItem("cart", JSON.stringify(existingCart));
-    window.dispatchEvent(new Event("storage")); // sync with Navbar
+    window.dispatchEvent(new Event("storage")); 
 
     alert(`${quantity} ${product.name} added to cart!`);
   };
 
-  const productImages = [product?.image, product?.image, product?.image];
+  const productImages = [product?.image];
 
-  const features = [
-    { icon: Truck, text: "Free shipping" },
-    { icon: Shield, text: "2-year warranty" },
-    { icon: RotateCcw, text: "30-day returns" },
-  ];
+  // const features = [
+  //   { icon: Truck, text: "Free shipping" },
+  //   { icon: Shield, text: "2-year warranty" },
+  //   { icon: RotateCcw, text: "30-day returns" },
+  // ];
 
   if (!product) return <Loading />;
 
@@ -118,14 +118,14 @@ export default function ProductDetails() {
                 <p className="text-gray-600 leading-relaxed">{product.description}</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4">
+              {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                     <feature.icon size={18} className="text-success" />
                     <span>{feature.text}</span>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               {/* Quantity & Add to Cart */}
               <div className="flex items-center gap-4">

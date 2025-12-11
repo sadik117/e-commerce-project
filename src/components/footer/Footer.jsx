@@ -9,11 +9,7 @@ export default function Footer({
   year = new Date().getFullYear(),
 }) {
   const cols = {
-    ABOUT: [
-      "About Us",
-      "Investors",
-      "Franchise"
-    ],
+    ABOUT: ["About Us", "Investors", "Franchise"],
     INFORMATION: [
       "TERMS & CONDITIONS",
       "Payment Options",
@@ -104,7 +100,12 @@ export default function Footer({
 
           {/* Socials */}
           <div className="flex items-center gap-2">
-            <a href="http://facebook.com/robebyshamshad" target="_blank" className="btn btn-ghost btn-circle" aria-label="Facebook">
+            <a
+              href="http://facebook.com/robebyshamshad"
+              target="_blank"
+              className="btn btn-ghost btn-circle"
+              aria-label="Facebook"
+            >
               {/* Facebook */}
               <svg
                 width="20"
@@ -116,6 +117,25 @@ export default function Footer({
                 <path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.35 2 1.87 6.48 1.87 12.07c0 5.02 3.66 9.19 8.44 9.93v-7.02H7.9v-2.91h2.41V9.41c0-2.38 1.4-3.69 3.56-3.69 1.03 0 2.11.18 2.11.18v2.32h-1.19c-1.17 0-1.54.73-1.54 1.48v1.78h2.63l-.42 2.91h-2.21V22c4.78-.74 8.44-4.91 8.44-9.93z" />
               </svg>
             </a>
+
+            <a
+              href="https://www.instagram.com/robebyshamshad/"
+              target="_blank"
+              className="btn btn-ghost btn-circle"
+              aria-label="Instagram"
+            >
+              {/* Instagram */}
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="opacity-90"
+              >
+                <path d="M12 2.2c3.2 0 3.58.012 4.85.068 1.17.054 1.97.24 2.66.51.7.27 1.33.64 1.85 1.2a5.1 5.1 0 0 1 1.2 1.85c.27.69.46 1.49.51 2.66.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.51 2.66a5.1 5.1 0 0 1-1.2 1.85 5.1 5.1 0 0 1-1.85 1.2c-.69.27-1.49.46-2.66.51-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.66-.51a5.1 5.1 0 0 1-1.85-1.2 5.1 5.1 0 0 1-1.2-1.85c-.27-.69-.46-1.49-.51-2.66-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.24-1.97.51-2.66.27-.7.64-1.33 1.2-1.85a5.1 5.1 0 0 1 1.85-1.2c.69-.27 1.49-.46 2.66-.51C8.42 2.21 8.8 2.2 12 2.2zm0 5.1a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zm0 1.8a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm6.1-2.9a1.35 1.35 0 1 1-2.7 0 1.35 1.35 0 0 1 2.7 0z" />
+              </svg>
+            </a>
+
             <a className="btn btn-ghost btn-circle" aria-label="X / Twitter">
               {/* X / Twitter */}
               <svg
@@ -128,18 +148,7 @@ export default function Footer({
                 <path d="M18.244 2h3.166l-6.92 7.91L22.5 22h-6.17l-4.83-6.31L5.82 22H2.65l7.4-8.45L1.5 2h6.31l4.36 5.77L18.244 2zm-1.08 18h1.75L7.01 4h-1.8l12.954 16z" />
               </svg>
             </a>
-            <a href="https://www.instagram.com/robebyshamshad/" target="_blank" className="btn btn-ghost btn-circle" aria-label="Instagram">
-              {/* Instagram */}
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="opacity-90"
-              >
-                <path d="M12 2.2c3.2 0 3.58.012 4.85.068 1.17.054 1.97.24 2.66.51.7.27 1.33.64 1.85 1.2a5.1 5.1 0 0 1 1.2 1.85c.27.69.46 1.49.51 2.66.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.51 2.66a5.1 5.1 0 0 1-1.2 1.85 5.1 5.1 0 0 1-1.85 1.2c-.69.27-1.49.46-2.66.51-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.66-.51a5.1 5.1 0 0 1-1.85-1.2 5.1 5.1 0 0 1-1.2-1.85c-.27-.69-.46-1.49-.51-2.66-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.24-1.97.51-2.66.27-.7.64-1.33 1.2-1.85a5.1 5.1 0 0 1 1.85-1.2c.69-.27 1.49-.46 2.66-.51C8.42 2.21 8.8 2.2 12 2.2zm0 5.1a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zm0 1.8a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm6.1-2.9a1.35 1.35 0 1 1-2.7 0 1.35 1.35 0 0 1 2.7 0z" />
-              </svg>
-            </a>
+
             <a className="btn btn-ghost btn-circle" aria-label="YouTube">
               {/* YouTube */}
               <svg
@@ -169,7 +178,11 @@ export default function Footer({
           stroke="currentColor"
           strokeWidth="2"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 15l7-7 7 7"
+          />
         </svg>
       </button>
 

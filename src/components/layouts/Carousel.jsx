@@ -25,12 +25,12 @@ const Carousel = () => {
       title: "Bride Products",
       subtitle: "Explore our full collection for a bride",
     },
-    {
-      id: 4,
-      image: "https://i.ibb.co.com/ycnZpTPk/photo-2025-11-13-18-33-20.jpg",
-      title: "Any time return policy",
-      subtitle: "Return your product any time you want",
-    },
+    // {
+    //   id: 4,
+    //   image: "https://i.ibb.co.com/ycnZpTPk/photo-2025-11-13-18-33-20.jpg",
+    //   title: "Any time return policy",
+    //   subtitle: "Return your product any time you want",
+    // },
   ]);
 
   return (
@@ -46,7 +46,7 @@ const Carousel = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-[180px] sm:h-[250px] md:h-[370px] lg:h-[450px] flex flex-col justify-center items-center bg-cover bg-center"
+              className="relative w-full h-[100px] sm:h-[280px] md:h-[370px] lg:h-[450px] flex flex-col justify-center items-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             ></div>
           </SwiperSlide>

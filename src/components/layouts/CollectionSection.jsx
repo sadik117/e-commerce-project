@@ -9,7 +9,7 @@ export default function CollectionSection() {
         <img
           src="https://i.postimg.cc/dV0LhYVf/Shamshad-collection.png"
           alt="collection banner"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full md:h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Overlay on Hover */}

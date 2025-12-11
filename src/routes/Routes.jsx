@@ -19,7 +19,6 @@ import PrivateRoute from "./PrivateRoute";
 import ViewProducts from "../components/admin/ViewProducts";
 import CouponPage from "../components/admin/CouponPage";
 import AdminRoute from "./AdminRoute";
-import SliderUpdate from "../components/admin/SliderUpdate";
 import OrderSuccess from "../components/pages/OrderSuccess";
 
 export const router = createBrowserRouter([

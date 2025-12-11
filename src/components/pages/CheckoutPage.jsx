@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+
 
 const CheckoutPage = () => {
+    
+  const navigate = useNavigate();
+  
   const [cart, setCart] = useState([]);
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0); // Fixed amount
@@ -31,7 +36,7 @@ const CheckoutPage = () => {
     cart?.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0) ||
     0;
 
-  const finalTotal = Math.max(subtotal - (subtotal*discount/100 || 0), 0);
+  const finalTotal = Math.max(subtotal - ((subtotal * discount) / 100 || 0), 0);
 
   //  Apply Coupon (fixed amount from backend)
   const applyCoupon = async () => {
@@ -40,9 +45,12 @@ const CheckoutPage = () => {
       return;
     }
     try {
-      const { data } = await axios.post("https://robe-by-shamshad-server.vercel.app/verify-coupon", {
-        code: couponCode,
-      });
+      const { data } = await axios.post(
+        "https://robe-by-shamshad-server.vercel.app/verify-coupon",
+        {
+          code: couponCode,
+        }
+      );
 
       if (data.valid) {
         setDiscount(data.discountAmount); // fixed discount
@@ -58,9 +66,10 @@ const CheckoutPage = () => {
 
   //  Checkout Function
   const handleCheckout = async (e) => {
+  
     e.preventDefault();
     if (!cart.length) return toast.error("Your cart is empty!");
-
+  
     setLoading(true);
     try {
       const orderData = {
@@ -73,12 +82,18 @@ const CheckoutPage = () => {
         createdAt: new Date(),
       };
 
-      await axios.post("https://robe-by-shamshad-server.vercel.app/orders", orderData);
+      await axios.post(
+        "https://robe-by-shamshad-server.vercel.app/orders",
+        orderData
+      );
       toast.success("Order placed successfully!");
+      navigate("/order-success");
 
-      // Reset form & cart
-      localStorage.removeItem("cart");
+      // Clear cart everywhere
+      localStorage.setItem("cart", JSON.stringify([]));
       setCart([]);
+
+      // Reset other states
       setDiscount(0);
       setCouponCode("");
       setForm({
@@ -212,7 +227,9 @@ const CheckoutPage = () => {
 
         <div className="border-t mt-4 pt-4 space-y-1 text-right">
           <p>Subtotal: ৳ {Number(subtotal).toFixed(2)}</p>
-          <p>Discount: ৳ {Number(subtotal*discount/100 || 0).toFixed(2)}</p>
+          <p>
+            Discount: ৳ {Number((subtotal * discount) / 100 || 0).toFixed(2)}
+          </p>
           <p className="font-bold text-lg">
             Total: ৳ {Number(finalTotal || 0).toFixed(2)}
           </p>

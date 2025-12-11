@@ -3,14 +3,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
-
 const CheckoutPage = () => {
-    
   const navigate = useNavigate();
-  
+
   const [cart, setCart] = useState([]);
   const [couponCode, setCouponCode] = useState("");
-  const [discount, setDiscount] = useState(0); // Fixed amount
+  const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -66,10 +64,9 @@ const CheckoutPage = () => {
 
   //  Checkout Function
   const handleCheckout = async (e) => {
-  
     e.preventDefault();
     if (!cart.length) return toast.error("Your cart is empty!");
-  
+
     setLoading(true);
     try {
       const orderData = {
@@ -87,7 +84,6 @@ const CheckoutPage = () => {
         orderData
       );
       toast.success("Order placed successfully!");
-      navigate("/order-success");
 
       // Clear cart everywhere
       localStorage.setItem("cart", JSON.stringify([]));
@@ -104,6 +100,7 @@ const CheckoutPage = () => {
         address: "",
         paymentMethod: "Cash On Delivery",
       });
+      navigate("/order-success");
     } catch (error) {
       console.error(error);
       toast.error("Failed to place order!");

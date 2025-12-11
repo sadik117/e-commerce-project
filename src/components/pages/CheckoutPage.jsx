@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const CheckoutPage = () => {
+  const navigate = useNavigate();
 
   const [cart, setCart] = useState([]);
   const [couponCode, setCouponCode] = useState("");
@@ -98,7 +100,7 @@ const CheckoutPage = () => {
         address: "",
         paymentMethod: "Cash On Delivery",
       });
-      window.location.href = "/order-success";
+      navigate("/order-success");
     } catch (error) {
       console.error(error);
       toast.error("Failed to place order!");

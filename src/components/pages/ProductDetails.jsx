@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
-import {
-  Star,
-  ShoppingCart,
-  Heart,
-  Share2,
-} from "lucide-react";
+import { Star, ShoppingCart, Heart, Share2 } from "lucide-react";
 import Loading from "../layouts/Loading";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
@@ -25,26 +20,47 @@ export default function ProductDetails() {
       .catch((err) => console.error("Failed to load product:", err));
   }, [id]);
 
+  useEffect(() => {
+    if (!product) return;
+
+    document.title = `${product.name} | Robe by Shamshad`;
+
+    const setMeta = (property, content) => {
+      let tag = document.querySelector(`meta[property='${property}']`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("property", property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+
+    setMeta("og:title", product.name);
+    setMeta("og:description", product.description);
+    setMeta("og:image", product.image);
+    setMeta("og:url", window.location.href);
+    setMeta("og:type", "product");
+  }, [product]);
+
   const handleShare = async () => {
-  const shareData = {
-    title: product.name,
-    text: `Check out this product: ${product.name}`,
-    url: window.location.href,
-  };
+    const shareData = {
+      title: product.name,
+      text: `Check out this product: ${product.name}`,
+      url: window.location.href,
+    };
 
-  try {
-    if (navigator.share) {
-      await navigator.share(shareData);
-    } else {
-      await navigator.clipboard.writeText(window.location.href);
-      toast.success("Product link copied to clipboard!");
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success("Product link copied to clipboard!");
+      }
+    } catch (error) {
+      console.error("Share failed:", error);
+      toast.error("Unable to share product");
     }
-  } catch (error) {
-    console.error("Share failed:", error);
-    toast.error("Unable to share product");
-  }
-};
-
+  };
 
   const addToCart = () => {
     if (!product) return;
@@ -79,25 +95,6 @@ export default function ProductDetails() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <Helmet>
-        <title>{product.name} | Robe by Shamshad</title>
-
-        <meta property="og:title" content={product.name} />
-        <meta property="og:description" content={product.description} />
-        <meta property="og:image" content={product.image} />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:type" content="product" />
-
-        {/* WhatsApp / Facebook */}
-        <meta property="og:site_name" content="Robe by Shamshad" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={product.name} />
-        <meta name="twitter:description" content={product.description} />
-        <meta name="twitter:image" content={product.image} />
-      </Helmet>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
@@ -227,10 +224,10 @@ export default function ProductDetails() {
                     />
                   </button>
 
-                  <button 
-                  onClick ={handleShare}
-                  className="p-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 transition-all duration-200">
-  
+                  <button
+                    onClick={handleShare}
+                    className="p-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 transition-all duration-200"
+                  >
                     <Share2 size={20} />
                   </button>
                 </div>

@@ -61,7 +61,7 @@ export default function Navbar({
     }
   };
 
-  // Define dynamic nav links
+  // Defined dynamic nav links
   const navLinks = [
     { label: "HOME", path: "/" },
     { label: "SHOP", path: "/shop" },
@@ -164,7 +164,7 @@ export default function Navbar({
 
       {/* Mobile Navigation Menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-md">
+        <div className="md:hidden bg-white border-t border-gray-200 shadow-md text-sm font-medium">
           <nav className="flex flex-col px-4 py-3 space-y-2">
             {navLinks.map((link) => (
               <NavLink
@@ -173,7 +173,7 @@ export default function Navbar({
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `block py-2 px-3 rounded-lg hover:bg-gray-100 ${
-                    isActive ? "bg-gray-100 text-[#5b0e0e] font-semibold" : ""
+                    isActive ? "bg-gray-100 text-[#5b0e0e] font-medium" : ""
                   }`
                 }
               >

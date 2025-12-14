@@ -66,7 +66,7 @@ const Carousel = () => {
       <div className="relative z-10 text-center text-white px-4">
         <Link
           to="/shop"
-          className="mt-2 sm:mt-4 inline-block bg-[#f04141] hover:bg-red-700 px-3 sm:px-4 py-1.5 sm:py-1 md:py-2 rounded-md font-semibold text-sm sm:text-base md:text-lg"
+          className="mt-2 sm:mt-4 inline-block bg-[#801a1a] hover:bg-red-700 px-3 sm:px-4 py-1.5 sm:py-1 md:py-2 rounded-xl font-semibold text-sm sm:text-base md:text-lg"
         >
           Shop Now
         </Link>

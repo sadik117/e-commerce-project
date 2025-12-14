@@ -314,8 +314,8 @@ export default function ShopPage() {
     <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-10">
       {/* Mobile Filter Button */}
       <div className="md:hidden sticky top-0 z-30 bg-base-100 py-3 mb-4 flex items-center justify-between border-b shadow-sm">
-        <div className="text-sm">
-          <span className="font-medium pl-2 dark:text-white">{filtered.length}</span> products for you
+        <div className="text-sm dark:text-white">
+          <span className="font-medium pl-2">{filtered.length}</span> products for you
         </div>
         <button
           onClick={() => setMobileFiltersOpen(true)}

@@ -41,14 +41,23 @@ const Carousel = () => {
         loop={true}
         slidesPerView={1}
         navigation={false}
-        className="w-full rounded-2xl aspect-[16/9] sm:aspect-[21/9] md:aspect-auto"
+        className="w-full rounded-2xl"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div
-              className="relative w-full h-[200px] md:h-[400px] flex flex-col justify-center items-center bg-cover bg-center"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            ></div>
+            {/* Fixed container with controlled dimensions */}
+            <div className="relative w-full h-[200px] md:h-[400px] overflow-hidden rounded-2xl">
+              <img
+                src={slide.image}
+                alt={slide.alt || "Slide image"}
+                className="w-full h-full object-cover"
+              />
+
+              {/* Optional overlay or content */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                {/* Your slide content here */}
+              </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

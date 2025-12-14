@@ -31,6 +31,7 @@ export default function Navbar({
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
+
   // wishlist management
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -45,6 +46,7 @@ export default function Navbar({
     return () => window.removeEventListener("wishlistUpdated", handleWishlist);
   }, []);
 
+  
 // cart total calculation
   const calculateTotal = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -79,7 +81,7 @@ export default function Navbar({
     }
   };
 
-  // Defined dynamic nav links
+  // dynamic nav links
   const navLinks = [
     { label: "HOME", path: "/" },
     { label: "SHOP", path: "/shop" },
@@ -166,11 +168,11 @@ export default function Navbar({
           </div>
 
           {/* Right: Cart */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             {/* Wishlist */}
             <button
               onClick={() => navigate("/wishlist")}
-              className="p-2 rounded-lg hover:bg-neutral-100 relative"
+              className="p-2 rounded-lg hover:bg-neutral-100 relative mr-2"
               aria-label="Wishlist"
             >
               ❤️

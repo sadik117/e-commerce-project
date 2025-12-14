@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
-import { Star, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
+import {
+  Star,
+  ShoppingCart,
+  Heart,
+  Share2,
+} from "lucide-react";
 import Loading from "../layouts/Loading";
+import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -18,11 +25,34 @@ export default function ProductDetails() {
       .catch((err) => console.error("Failed to load product:", err));
   }, [id]);
 
+  const handleShare = async () => {
+  const shareData = {
+    title: product.name,
+    text: `Check out this product: ${product.name}`,
+    url: window.location.href,
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      toast.success("Product link copied to clipboard!");
+    }
+  } catch (error) {
+    console.error("Share failed:", error);
+    toast.error("Unable to share product");
+  }
+};
+
+
   const addToCart = () => {
     if (!product) return;
 
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingItemIndex = existingCart.findIndex((item) => item.id === product._id);
+    const existingItemIndex = existingCart.findIndex(
+      (item) => item.id === product._id
+    );
 
     if (existingItemIndex > -1) {
       existingCart[existingItemIndex].quantity += quantity;
@@ -38,23 +68,36 @@ export default function ProductDetails() {
     }
 
     localStorage.setItem("cart", JSON.stringify(existingCart));
-    window.dispatchEvent(new Event("storage")); 
+    window.dispatchEvent(new Event("storage"));
 
-    alert(`${quantity} ${product.name} added to cart!`);
+    toast.success(`${quantity} ${product.name} added to cart!`);
   };
 
   const productImages = [product?.image];
-
-  // const features = [
-  //   { icon: Truck, text: "Free shipping" },
-  //   { icon: Shield, text: "2-year warranty" },
-  //   { icon: RotateCcw, text: "30-day returns" },
-  // ];
 
   if (!product) return <Loading />;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
+      <Helmet>
+        <title>{product.name} | Robe by Shamshad</title>
+
+        <meta property="og:title" content={product.name} />
+        <meta property="og:description" content={product.description} />
+        <meta property="og:image" content={product.image} />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="product" />
+
+        {/* WhatsApp / Facebook */}
+        <meta property="og:site_name" content="Robe by Shamshad" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={product.name} />
+        <meta name="twitter:description" content={product.description} />
+        <meta name="twitter:image" content={product.image} />
+      </Helmet>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
@@ -98,7 +141,11 @@ export default function ProductDetails() {
                   </span>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} size={16} className="fill-warning text-warning" />
+                      <Star
+                        key={star}
+                        size={16}
+                        className="fill-warning text-warning"
+                      />
                     ))}
                     <span className="text-sm text-gray-500 ml-1">(4.8)</span>
                   </div>
@@ -114,22 +161,29 @@ export default function ProductDetails() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Description:</h3>
-                <p className="text-gray-600 leading-relaxed">{product.description}</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Description:
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {product.description}
+                </p>
               </div>
 
-              {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                    <feature.icon size={18} className="text-success" />
-                    <span>{feature.text}</span>
-                  </div>
-                ))}
-              </div> */}
+              <div className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Delivery Charge:
+                </h3>
+                <p>
+                  Delivery charge overall 13 Taka. So, order before 24th
+                  December
+                </p>
+              </div>
 
               {/* Quantity & Add to Cart */}
               <div className="flex items-center gap-4">
-                <span className="text-lg font-medium text-gray-900">Quantity:</span>
+                <span className="text-lg font-medium text-gray-900">
+                  Quantity:
+                </span>
                 <div className="flex items-center border border-gray-300 rounded-lg">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -167,10 +221,16 @@ export default function ProductDetails() {
                         : "bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100"
                     }`}
                   >
-                    <Heart size={20} fill={isFavorite ? "currentColor" : "none"} />
+                    <Heart
+                      size={20}
+                      fill={isFavorite ? "currentColor" : "none"}
+                    />
                   </button>
 
-                  <button className="p-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 transition-all duration-200">
+                  <button 
+                  onClick ={handleShare}
+                  className="p-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 transition-all duration-200">
+  
                     <Share2 size={20} />
                   </button>
                 </div>

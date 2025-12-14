@@ -358,12 +358,12 @@ export default function ShopPage() {
           <div className="md:hidden fixed inset-0 z-50">
             {/* Backdrop */}
             <div 
-              className="absolute inset-0 bg-black bg-opacity-50 transition-opacity dark:text-white"
+              className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
               onClick={() => setMobileFiltersOpen(false)}
             />
             
             {/* Drawer */}
-            <div className="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-base-100 shadow-xl overflow-y-auto">
+            <div className="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-base-100 shadow-xl overflow-y-auto dark:text-white">
               <div className="sticky top-0 z-10 bg-base-100 border-b p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <h2 className="text-lg font-bold">Filters</h2>

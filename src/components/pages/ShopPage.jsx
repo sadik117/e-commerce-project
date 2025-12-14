@@ -358,7 +358,7 @@ export default function ShopPage() {
           <div className="md:hidden fixed inset-0 z-50">
             {/* Backdrop */}
             <div 
-              className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
+              className="absolute inset-0 bg-black bg-opacity-50 transition-opacity dark:text-white"
               onClick={() => setMobileFiltersOpen(false)}
             />
             

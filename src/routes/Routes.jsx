@@ -20,6 +20,7 @@ import ViewProducts from "../components/admin/ViewProducts";
 import CouponPage from "../components/admin/CouponPage";
 import AdminRoute from "./AdminRoute";
 import OrderSuccess from "../components/pages/OrderSuccess";
+import Wishlist from "../components/pages/Wishlist";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: "/order-success",
         Component: OrderSuccess
+      },
+      {
+        path: "/wishlist",
+        Component: Wishlist
       },
       {
         path: "/admin",

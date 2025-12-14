@@ -5,7 +5,6 @@ import { Star, ShoppingCart, Heart, Share2 } from "lucide-react";
 import Loading from "../layouts/Loading";
 import { toast } from "react-toastify";
 
-
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -62,6 +61,7 @@ export default function ProductDetails() {
     }
   };
 
+  // cart add functionality
   const addToCart = () => {
     if (!product) return;
 
@@ -87,6 +87,31 @@ export default function ProductDetails() {
     window.dispatchEvent(new Event("storage"));
 
     toast.success(`${quantity} ${product.name} added to cart!`);
+  };
+
+  // wishlist add functionality
+
+  const toggleWishlist = () => {
+    const saved = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const exists = saved.find((i) => i.id === product._id);
+
+    let updated;
+    if (exists) {
+      updated = saved.filter((i) => i.id !== product._id);
+    } else {
+      updated = [
+        ...saved,
+        {
+          id: product._id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+        },
+      ];
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(updated));
+    window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
   const productImages = [product?.image];
@@ -211,7 +236,10 @@ export default function ProductDetails() {
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setIsFavorite(!isFavorite)}
+                    onClick={() => {
+                      setIsFavorite(!isFavorite);
+                      toggleWishlist();
+                    }}
                     className={`p-4 rounded-xl border transition-all duration-200 ${
                       isFavorite
                         ? "bg-red-50 border-red-200 text-red-500"

@@ -46,7 +46,7 @@ const Carousel = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-[100px] sm:h-[280px] md:h-[370px] lg:h-[450px] flex flex-col justify-center items-center bg-cover bg-center"
+              className="relative w-full h-[200px] md:h-[400px] flex flex-col justify-center items-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             ></div>
           </SwiperSlide>

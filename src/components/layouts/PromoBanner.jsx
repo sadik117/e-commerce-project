@@ -19,9 +19,9 @@ const PromoBanner = () => {
         <p className="text-lg md:text-xl">
           Get <span className="font-bold text-yellow-300">20% OFF</span> on your first order.
         </p>
-        <p className="mt-1 text-sm">
+        {/* <p className="mt-1 text-sm">
           Use Code: <span className="font-bold uppercase tracking-widest">WELCOME20</span>
-        </p>
+        </p> */}
 
         <Link
           to="/shop"

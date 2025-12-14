@@ -228,7 +228,7 @@ export default function ProductDetails() {
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <button
                   onClick={addToCart}
-                  className="flex-1 bg-error hover:bg-error/90 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="flex-1 bg-red-800 hover:bg-error/90 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   <ShoppingCart size={20} />
                   Add to Cart

@@ -202,7 +202,7 @@ export default function Footer({
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
-        className="fixed bottom-6 right-6 w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 z-50"
+        className="fixed bottom-6 right-6 w-12 h-12 hover:bg-blue-700 text-black rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 z-50"
       >
         <svg
           className="w-6 h-6"

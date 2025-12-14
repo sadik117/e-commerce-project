@@ -55,7 +55,7 @@ const Carousel = () => {
 
               {/* Optional overlay or content */}
               <div className="absolute inset-0 flex items-center justify-center">
-                {/* Your slide content here */}
+                {/* slide content here */}
               </div>
             </div>
           </SwiperSlide>

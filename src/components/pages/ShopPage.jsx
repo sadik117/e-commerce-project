@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import Loading from "../layouts/Loading";
-
+import { FiFilter, FiX } from "react-icons/fi";
 
 /* Config Options */
 const PRICE_RANGES = [
@@ -36,10 +36,217 @@ const COLORS = [
 
 const PAGE_SIZES = [12, 24, 48];
 
-/* Component */
+/* Filter Section Component */
+function FilterSection({
+  gender, setGender, priceId, setPriceId, color, setColor, 
+  category, setCategory, sortId, setSortId, perPage, setPerPage,
+  setPage, products, clearAll, onApply
+}) {
+  const onPerPageChange = (v) => {
+    setPerPage(v);
+    setPage(1);
+  };
+
+  // Get unique categories
+  const uniqueCategories = Array.from(new Set(products.map((p) => p.category))).filter(Boolean);
+
+  return (
+    <div className="rounded-xl border border-base-300 bg-base-200 p-4 md:p-5 space-y-5">
+      <h2 className="text-lg font-extrabold tracking-wide">Filters</h2>
+
+      {/* Active filters display */}
+      <div className="flex flex-wrap gap-2">
+        {gender && (
+          <span className="badge badge-neutral gap-2">
+            Gender: {gender}
+            <button onClick={() => setGender(null)} className="hover:opacity-70">✕</button>
+          </span>
+        )}
+        {priceId && (
+          <span className="badge badge-neutral gap-1">
+            {PRICE_RANGES.find((r) => r.id === priceId)?.label}
+            <button onClick={() => setPriceId(null)} className="hover:opacity-70">✕</button>
+          </span>
+        )}
+        {color && (
+          <span className="badge badge-neutral gap-1">
+            <span
+              className="w-3 h-3 rounded-sm"
+              style={{ backgroundColor: color }}
+            />
+            <button onClick={() => setColor(null)} className="hover:opacity-70">✕</button>
+          </span>
+        )}
+        {category && (
+          <span className="badge badge-neutral gap-1">
+            Category: {category}
+            <button onClick={() => setCategory(null)} className="hover:opacity-70">✕</button>
+          </span>
+        )}
+        {!gender && !priceId && !color && !category && (
+          <span className="text-sm opacity-60">No filters applied</span>
+        )}
+      </div>
+
+      {/* Items per page + Sort */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="form-control">
+          <label className="label py-0">
+            <span className="label-text text-sm opacity-70">Items per page</span>
+          </label>
+          <select
+            className="select select-bordered select-sm"
+            value={perPage}
+            onChange={(e) => onPerPageChange(Number(e.target.value))}
+          >
+            {PAGE_SIZES.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-control">
+          <label className="label py-0">
+            <span className="label-text text-sm opacity-70">Sort</span>
+          </label>
+          <select
+            className="select select-bordered select-sm"
+            value={sortId}
+            onChange={(e) => {
+              setSortId(e.target.value);
+              setPage(1);
+            }}
+          >
+            {SORT_OPTIONS.map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Gender Filter */}
+      <div className="collapse collapse-arrow bg-base-100 rounded-lg">
+        <input type="checkbox" defaultChecked />
+        <div className="collapse-title text-sm font-extrabold tracking-wide">
+          GENDER
+        </div>
+        <div className="collapse-content space-y-2 pt-2">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              className="checkbox checkbox-sm"
+              checked={gender === "men"}
+              onChange={() => setGender(gender === "men" ? null : "men")}
+            />
+            <span>Men</span>
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              className="checkbox checkbox-sm"
+              checked={gender === "women"}
+              onChange={() => setGender(gender === "women" ? null : "women")}
+            />
+            <span>Women</span>
+          </label>
+        </div>
+      </div>
+
+      {/* Category Filter */}
+      <div className="collapse collapse-arrow bg-base-100 rounded-lg">
+        <input type="checkbox" defaultChecked />
+        <div className="collapse-title text-sm font-extrabold tracking-wide">
+          CATEGORY
+        </div>
+        <div className="collapse-content space-y-2 pt-2">
+          {uniqueCategories.map((cat) => (
+            <label key={cat} className="flex items-center gap-2 capitalize">
+              <input
+                type="checkbox"
+                className="checkbox checkbox-sm"
+                checked={category === cat}
+                onChange={() => setCategory(category === cat ? null : cat)}
+              />
+              <span>{cat}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Filter */}
+      <div className="collapse collapse-arrow bg-base-100 rounded-lg">
+        <input type="checkbox" defaultChecked />
+        <div className="collapse-title text-sm font-extrabold tracking-wide">
+          PRICE
+        </div>
+        <div className="collapse-content space-y-2 pt-2">
+          {PRICE_RANGES.map((r) => (
+            <label key={r.id} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                className="checkbox checkbox-sm"
+                checked={priceId === r.id}
+                onChange={() =>
+                  setPriceId(priceId === r.id ? null : r.id)
+                }
+              />
+              <span>{r.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Color Filter */}
+      <div className="collapse collapse-arrow bg-base-100 rounded-lg">
+        <input type="checkbox" defaultChecked />
+        <div className="collapse-title text-sm font-extrabold tracking-wide">
+          COLOR
+        </div>
+        <div className="collapse-content flex flex-wrap gap-3 pt-2">
+          {COLORS.map((c) => (
+            <button
+              key={c.name}
+              className={`w-7 h-7 rounded-full border-2 ${
+                color === c.name ? "ring-2 ring-primary ring-offset-1" : "border-base-300"
+              }`}
+              style={{ backgroundColor: c.code }}
+              onClick={() =>
+                setColor(color === c.name ? null : c.name)
+              }
+              title={c.name}
+              aria-label={c.name}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Clear Button */}
+      <button className="btn btn-ghost btn-sm w-full" onClick={clearAll}>
+        Clear all filters
+      </button>
+      
+      {/* Mobile Apply Button */}
+      {onApply && (
+        <button 
+          className="btn btn-primary w-full mt-4 md:hidden"
+          onClick={onApply}
+        >
+          Apply Filters
+        </button>
+      )}
+    </div>
+  );
+}
+
+/* Main Component */
 export default function ShopPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const [gender, setGender] = useState(null);
   const [priceId, setPriceId] = useState(null);
@@ -97,216 +304,137 @@ export default function ShopPage() {
     setSortId("featured");
     setPerPage(12);
     setPage(1);
+    setMobileFiltersOpen(false);
   };
 
-  const onPerPageChange = (v) => {
-    setPerPage(v);
-    setPage(1);
-  };
+  // Active filters count
+  const activeFilterCount = [gender, priceId, color, category].filter(Boolean).length;
 
-  /* UI */
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 lg:py-10">
+    <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-10">
+      {/* Mobile Filter Button */}
+      <div className="md:hidden sticky top-0 z-30 bg-base-100 py-3 mb-4 flex items-center justify-between border-b shadow-sm">
+        <div className="text-sm">
+          <span className="font-medium pl-2">{filtered.length}</span> products for you
+        </div>
+        <button
+          onClick={() => setMobileFiltersOpen(true)}
+          className="btn btn-sm btn-neutral flex items-center gap-2 mr-2"
+        >
+          <FiFilter size={16} />
+          Filters
+          {activeFilterCount > 0 && (
+            <span className="badge badge-sm badge-primary -ml-1">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
-        {/* LEFT FILTERS */}
-        <aside className="md:top-20 md:sticky dark:text-white">
-          <div className="rounded-xl border border-base-300 bg-base-200 p-4 md:p-5 space-y-5">
-            <h2 className="text-lg font-extrabold tracking-wide">Filters</h2>
-
-            {/* Active filters display */}
-            <div className="flex flex-wrap gap-2">
-              {gender && (
-                <span className="badge badge-neutral gap-2">
-                  Gender: {gender}
-                  <button onClick={() => setGender(null)}>✕</button>
-                </span>
-              )}
-              {priceId && (
-                <span className="badge badge-neutral gap-1">
-                  {PRICE_RANGES.find((r) => r.id === priceId)?.label}
-                  <button onClick={() => setPriceId(null)}>✕</button>
-                </span>
-              )}
-              {color && (
-                <span className="badge badge-neutral gap-1">
-                  <span
-                    className="w-3 h-3 rounded-sm"
-                    style={{ backgroundColor: color }}
-                  />
-                  <button onClick={() => setColor(null)}>✕</button>
-                </span>
-              )}
-              {category && (
-                <span className="badge badge-neutral gap-1">
-                  Category: {category}
-                  <button onClick={() => setCategory(null)}>✕</button>
-                </span>
-              )}
-              {!gender && !priceId && !color && !category && (
-                <span className="text-sm opacity-60">No filters applied</span>
-              )}
-            </div>
-
-            {/* Items per page + Sort */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="form-control">
-                <label className="label py-0">
-                  <span className="label-text text-sm opacity-70">Items per page</span>
-                </label>
-                <select
-                  className="select select-bordered select-sm"
-                  value={perPage}
-                  onChange={(e) => onPerPageChange(Number(e.target.value))}
-                >
-                  {PAGE_SIZES.map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-control">
-                <label className="label py-0">
-                  <span className="label-text text-sm opacity-70">Sort</span>
-                </label>
-                <select
-                  className="select select-bordered select-sm"
-                  value={sortId}
-                  onChange={(e) => {
-                    setSortId(e.target.value);
-                    setPage(1);
-                  }}
-                >
-                  {SORT_OPTIONS.map((o) => (
-                    <option key={o.id} value={o.id}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Gender Filter */}
-            <div className="collapse collapse-arrow bg-base-100 rounded-lg">
-              <input type="checkbox" defaultChecked />
-              <div className="collapse-title text-sm font-extrabold tracking-wide">
-                GENDER
-              </div>
-              <div className="collapse-content space-y-2">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm"
-                    checked={gender === "men"}
-                    onChange={() => setGender(gender === "men" ? null : "men")}
-                  />
-                  <span>Men</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm"
-                    checked={gender === "women"}
-                    onChange={() => setGender(gender === "women" ? null : "women")}
-                  />
-                  <span>Women</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Category Filter */}
-            <div className="collapse collapse-arrow bg-base-100 rounded-lg">
-              <input type="checkbox" defaultChecked />
-              <div className="collapse-title text-sm font-extrabold tracking-wide">
-                CATEGORY
-              </div>
-              <div className="collapse-content space-y-2">
-                {Array.from(new Set(products.map((p) => p.category))).map((cat) => (
-                  <label key={cat} className="flex items-center gap-2 capitalize">
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-sm"
-                      checked={category === cat}
-                      onChange={() => setCategory(category === cat ? null : cat)}
-                    />
-                    <span>{cat}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Filter */}
-            <div className="collapse collapse-arrow bg-base-100 rounded-lg">
-              <input type="checkbox" defaultChecked />
-              <div className="collapse-title text-sm font-extrabold tracking-wide">
-                PRICE
-              </div>
-              <div className="collapse-content space-y-2">
-                {PRICE_RANGES.map((r) => (
-                  <label key={r.id} className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-sm"
-                      checked={priceId === r.id}
-                      onChange={() =>
-                        setPriceId(priceId === r.id ? null : r.id)
-                      }
-                    />
-                    <span>{r.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Color Filter */}
-            <div className="collapse collapse-arrow bg-base-100 rounded-lg">
-              <input type="checkbox" defaultChecked />
-              <div className="collapse-title text-sm font-extrabold tracking-wide">
-                COLOR
-              </div>
-              <div className="collapse-content flex flex-wrap gap-3">
-                {COLORS.map((c) => (
-                  <button
-                    key={c.name}
-                    className={`w-6 h-6 rounded-full border ${
-                      color === c.name ? "ring-2 ring-neutral" : ""
-                    }`}
-                    style={{ backgroundColor: c.code }}
-                    onClick={() =>
-                      setColor(color === c.name ? null : c.name)
-                    }
-                    title={c.name}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Clear Button */}
-            <button className="btn btn-ghost btn-sm w-full" onClick={clearAll}>
-              Clear all
-            </button>
-          </div>
+        {/* Desktop Filters (hidden on mobile) */}
+        <aside className="hidden md:block md:top-20 md:sticky dark:text-white h-fit">
+          <FilterSection
+            gender={gender}
+            setGender={setGender}
+            priceId={priceId}
+            setPriceId={setPriceId}
+            color={color}
+            setColor={setColor}
+            category={category}
+            setCategory={setCategory}
+            sortId={sortId}
+            setSortId={setSortId}
+            perPage={perPage}
+            setPerPage={setPerPage}
+            setPage={setPage}
+            products={products}
+            clearAll={clearAll}
+          />
         </aside>
+
+        {/* Mobile Filter Drawer */}
+        {mobileFiltersOpen && (
+          <div className="md:hidden fixed inset-0 z-50">
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
+              onClick={() => setMobileFiltersOpen(false)}
+            />
+            
+            {/* Drawer */}
+            <div className="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-base-100 shadow-xl overflow-y-auto">
+              <div className="sticky top-0 z-10 bg-base-100 border-b p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-lg font-bold">Filters</h2>
+                  {activeFilterCount > 0 && (
+                    <span className="badge badge-primary badge-sm">
+                      {activeFilterCount} active
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={() => setMobileFiltersOpen(false)}
+                  className="btn btn-ghost btn-sm btn-circle"
+                  aria-label="Close filters"
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
+              
+              <div className="p-4">
+                <FilterSection
+                  gender={gender}
+                  setGender={setGender}
+                  priceId={priceId}
+                  setPriceId={setPriceId}
+                  color={color}
+                  setColor={setColor}
+                  category={category}
+                  setCategory={setCategory}
+                  sortId={sortId}
+                  setSortId={setSortId}
+                  perPage={perPage}
+                  setPerPage={setPerPage}
+                  setPage={setPage}
+                  products={products}
+                  clearAll={clearAll}
+                  onApply={() => setMobileFiltersOpen(false)}
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* RIGHT PRODUCTS */}
         <section className="min-w-0">
           {loading ? (
-            <Loading></Loading>
+            <Loading />
           ) : (
             <>
+              {/* Products Count for Desktop */}
+              <div className="hidden md:flex items-center justify-between mb-6">
+                <div className="text-sm opacity-70">
+                  Showing {current.length} of {filtered.length} products
+                </div>
+                <div className="text-sm opacity-70">
+                  Page {clampedPage} of {totalPages}
+                </div>
+              </div>
+
+              {/* Products Grid */}
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {current.map((p) => (
                   <article
                     key={p._id}
                     onClick={() => navigate(`/product/${p._id}`)}
-                    className="card bg-base-100 border border-base-200 hover:shadow-lg transition cursor-pointer"
+                    className="card bg-base-100 border border-base-200 hover:shadow-lg transition-all duration-200 cursor-pointer hover:-translate-y-1"
                   >
-                    <figure className="bg-base-200">
+                    <figure className="bg-base-200 aspect-square">
                       <img
                         src={p.image}
                         alt={p.name}
-                        className="h-44 sm:h-52 object-contain"
+                        className="h-full w-full object-contain p-4"
                       />
                     </figure>
                     <div className="card-body p-4">
@@ -331,66 +459,78 @@ export default function ShopPage() {
 
               {current.length === 0 && (
                 <div className="py-16 text-center opacity-70">
-                  No products match your filters.
+                  <div className="text-lg mb-2">No products found</div>
+                  <p className="text-sm opacity-70 mb-4">
+                    Try adjusting your filters or search terms
+                  </p>
+                  <button 
+                    onClick={clearAll}
+                    className="btn btn-sm btn-neutral"
+                  >
+                    Clear all filters
+                  </button>
                 </div>
               )}
 
               {/* Pagination */}
-              <div className="mt-8 flex items-center justify-center gap-2">
-                <button
-                  className="btn btn-sm"
-                  disabled={clampedPage <= 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                >
-                  Prev
-                </button>
-                <div className="join">
-                  {Array.from({ length: totalPages }).map((_, i) => {
-                    const idx = i + 1;
-                    const show =
-                      idx === 1 ||
-                      idx === totalPages ||
-                      Math.abs(idx - clampedPage) <= 1 ||
-                      (clampedPage <= 2 && idx <= 3) ||
-                      (clampedPage >= totalPages - 1 &&
-                        idx >= totalPages - 2);
-                    if (!show) {
-                      if (
-                        (idx === 2 && clampedPage > 3) ||
-                        (idx === totalPages - 1 && clampedPage < totalPages - 2)
-                      ) {
-                        return (
-                          <button
-                            key={`dots-${idx}`}
-                            className="btn btn-sm join-item btn-disabled"
-                          >
-                            ...
-                          </button>
-                        );
+              {filtered.length > 0 && (
+                <div className="mt-8 flex items-center justify-center gap-2">
+                  <button
+                    className="btn btn-sm"
+                    disabled={clampedPage <= 1}
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  >
+                    Prev
+                  </button>
+                  <div className="join">
+                    {Array.from({ length: totalPages }).map((_, i) => {
+                      const idx = i + 1;
+                      const show =
+                        idx === 1 ||
+                        idx === totalPages ||
+                        Math.abs(idx - clampedPage) <= 1 ||
+                        (clampedPage <= 2 && idx <= 3) ||
+                        (clampedPage >= totalPages - 1 &&
+                          idx >= totalPages - 2);
+                      if (!show) {
+                        if (
+                          (idx === 2 && clampedPage > 3) ||
+                          (idx === totalPages - 1 && clampedPage < totalPages - 2)
+                        ) {
+                          return (
+                            <button
+                              key={`dots-${idx}`}
+                              className="btn btn-sm join-item btn-disabled"
+                              disabled
+                            >
+                              ...
+                            </button>
+                          );
+                        }
+                        return null;
                       }
-                      return null;
-                    }
-                    return (
-                      <button
-                        key={idx}
-                        className={`btn btn-sm join-item ${
-                          clampedPage === idx ? "btn-neutral" : ""
-                        }`}
-                        onClick={() => setPage(idx)}
-                      >
-                        {idx}
-                      </button>
-                    );
-                  })}
+                      return (
+                        <button
+                          key={idx}
+                          className={`btn btn-sm join-item ${
+                            clampedPage === idx ? "btn-neutral" : ""
+                          }`}
+                          onClick={() => setPage(idx)}
+                        >
+                          {idx}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <button
+                    className="btn btn-sm"
+                    disabled={clampedPage >= totalPages}
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  >
+                    Next
+                  </button>
                 </div>
-                <button
-                  className="btn btn-sm"
-                  disabled={clampedPage >= totalPages}
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                >
-                  Next
-                </button>
-              </div>
+              )}
             </>
           )}
         </section>

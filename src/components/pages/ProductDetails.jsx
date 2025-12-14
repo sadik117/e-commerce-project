@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Star, ShoppingCart, Heart, Share2 } from "lucide-react";
 import Loading from "../layouts/Loading";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 
 export default function ProductDetails() {
   const { id } = useParams();

@@ -3,7 +3,6 @@ import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../authentication/AuthProvider";
 import useUserRole from "../hooks/useUserRole";
 
-
 export default function Navbar({
   brand = "ROBE BY SHAMSHAD",
   announcement = "ALL SHIPPING TO USA ARE ON HOLD DUE TO NEW TARIFF ADVISORY UNTIL FURTHER NOTICE",
@@ -11,11 +10,13 @@ export default function Navbar({
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [wishlistItems, setWishlistItems] = useState([]);
 
   const { user, logOut } = useContext(AuthContext);
   const { role, roleLoading } = useUserRole();
   const navigate = useNavigate();
 
+  // cart management
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
@@ -30,6 +31,21 @@ export default function Navbar({
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
+  // wishlist management
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistItems(saved);
+
+    const handleWishlist = () => {
+      const updated = JSON.parse(localStorage.getItem("wishlist")) || [];
+      setWishlistItems(updated);
+    };
+
+    window.addEventListener("wishlistUpdated", handleWishlist);
+    return () => window.removeEventListener("wishlistUpdated", handleWishlist);
+  }, []);
+
+// cart total calculation
   const calculateTotal = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -51,6 +67,8 @@ export default function Navbar({
   };
 
   const currentCartCount = cartItems.reduce((t, i) => t + i.quantity, 0);
+  
+  const wishlistCount = wishlistItems.length;
 
   const handleLogout = async () => {
     try {
@@ -96,7 +114,10 @@ export default function Navbar({
               to="/"
               className="inline-grid place-items-center w-9 h-9 rounded-full border border-neutral-300"
             >
-              <img src="https://i.postimg.cc/rpbW2KgN/rbs-logo.jpg" className="rounded-2xl"></img>
+              <img
+                src="https://i.postimg.cc/rpbW2KgN/rbs-logo.jpg"
+                className="rounded-2xl"
+              ></img>
             </NavLink>
           </div>
 
@@ -146,6 +167,19 @@ export default function Navbar({
 
           {/* Right: Cart */}
           <div className="flex items-center gap-3">
+            {/* Wishlist */}
+            <button
+              onClick={() => navigate("/wishlist")}
+              className="p-2 rounded-lg hover:bg-neutral-100 relative"
+              aria-label="Wishlist"
+            >
+              ❤️
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-[10px] px-1.5 py-0.5 rounded-full bg-[#5b0e0e] text-white">
+                  {wishlistCount}
+                </span>
+              )}
+            </button>
             <button
               className="p-2 rounded-lg hover:bg-neutral-100 relative"
               aria-label="Cart"
@@ -287,7 +321,7 @@ export default function Navbar({
                   </div>
                   <Link
                     to="/checkout"
-                    onClick={ ()=> setCartOpen(false)}
+                    onClick={() => setCartOpen(false)}
                     className="w-full bg-[#5b0e0e] text-white py-3 px-3 rounded-lg hover:bg-[#4a0b0b] transition"
                   >
                     Proceed to Checkout
